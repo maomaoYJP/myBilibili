@@ -4,7 +4,11 @@
       <span class="logo">首页</span>
     </div>
     <div class="center">
-      <Search :searchHistory="searchHistory" :searchHot="searchHot" />
+      <Search
+        :searchHistory="searchHistory"
+        :searchHot="searchHot"
+        :class="{ scrolled: scrolled }"
+      />
     </div>
     <div class="right"></div>
   </div>
@@ -36,7 +40,7 @@ onMounted(() => {
 <style scoped lang="scss">
 .header-container {
   color: $text-color-light;
-  height: 60px;
+  height: 70px;
   width: 100%;
   background-color: $p-bg-color;
   position: sticky;
@@ -45,6 +49,7 @@ onMounted(() => {
   transition: all 0.3s ease-in-out;
   background-color: transparent;
   display: flex;
+  align-items: center;
   justify-content: space-between;
   padding: $m-padding;
   &:hover {
@@ -59,5 +64,6 @@ onMounted(() => {
 .scrolled {
   background-color: $p-bg-color;
   box-shadow: $p-shadow;
+  color: $text-color-dark;
 }
 </style>

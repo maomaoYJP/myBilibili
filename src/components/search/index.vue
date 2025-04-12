@@ -99,6 +99,11 @@ onBeforeUnmount(() => {
     }
   }
   .search-content {
+    position: absolute;
+    width: 360px;
+    top: 100%;
+    background-color: $p-bg-color;
+    border-radius: 6px;
     padding: $s-padding;
     color: $text-color-deep;
     .search-history-title {
