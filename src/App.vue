@@ -28,6 +28,9 @@ import zhCn from "element-plus/es/locale/lang/zh-cn";
 body {
   margin: 0;
   padding: 0;
+}
+
+* {
   box-sizing: border-box;
 }
 </style>
