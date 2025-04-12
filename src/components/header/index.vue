@@ -1,5 +1,5 @@
 <template>
-  <div class="header-container" :class="{ scrolled: scrolled }">212</div>
+  <div class="header-container" :class="{ scrolled: scrolled }"></div>
 </template>
 
 <script setup lang="ts">
@@ -21,7 +21,6 @@ onMounted(() => {
   height: 60px;
   width: 100%;
   background-color: $p-bg-color;
-  box-shadow: $p-shadow;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -34,5 +33,6 @@ onMounted(() => {
 
 .scrolled {
   background-color: $p-bg-color;
+  box-shadow: $p-shadow;
 }
 </style>

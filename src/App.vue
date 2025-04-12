@@ -1,13 +1,17 @@
 <template>
-  <div class="app-container">
-    <Header />
-    <RouterView />
-  </div>
+  <ElConfigProvider :locale="zhCn">
+    <div class="app-container">
+      <Header />
+      <RouterView />
+    </div>
+  </ElConfigProvider>
 </template>
 
 <script setup lang="ts">
 import { RouterView } from "vue-router";
 import Header from "@/components/header/index.vue";
+import { ElConfigProvider } from "element-plus";
+import zhCn from "element-plus/es/locale/lang/zh-cn";
 </script>
 
 <style scoped lang="scss">
