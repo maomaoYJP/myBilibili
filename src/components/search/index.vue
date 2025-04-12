@@ -14,7 +14,7 @@
       </el-button>
     </div>
 
-    <div class="search-content" v-show="isShow">
+    <div class="search-content" :style="{ opacity: isShow ? 1 : 0 }">
       <div class="search-history">
         <div class="search-history-title">
           <span>历史搜索</span>
@@ -101,7 +101,9 @@ onBeforeUnmount(() => {
   .search-content {
     position: absolute;
     width: 360px;
-    top: 100%;
+    top: 120%;
+    transition: all 0.3s;
+    border: 1px solid $p-bg-color-deep;
     background-color: $p-bg-color;
     border-radius: 6px;
     padding: $s-padding;
