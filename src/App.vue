@@ -1,14 +1,29 @@
-<script setup lang="ts">
-import { RouterView } from "vue-router";
-</script>
-
 <template>
-  <div class="test">12313</div>
-  <RouterView />
+  <div class="app-container">
+    <Header />
+    <RouterView />
+  </div>
 </template>
 
+<script setup lang="ts">
+import { RouterView } from "vue-router";
+import Header from "@/components/header/index.vue";
+</script>
+
 <style scoped lang="scss">
-.test {
-  color: $primary-color;
+.app-container {
+  position: relative;
+  min-width: $min-width;
+  max-width: $max-width;
+  margin: 0 auto;
+  background-color: $p-bg-color;
+}
+</style>
+
+<style>
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 </style>

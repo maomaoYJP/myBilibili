@@ -1,11 +1,15 @@
 import { fileURLToPath, URL } from "node:url";
-
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
+import AutoImport from "unplugin-auto-import/vite";
 
-// https://vite.dev/config/
+const autoImport = AutoImport({
+  imports: ["vue"],
+  dts: "src/plugins/auto-imports.d.ts",
+});
+
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), autoImport],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
