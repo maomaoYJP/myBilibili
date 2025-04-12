@@ -13,7 +13,7 @@
     </div>
     <div class="right">
       <div class="top-item">
-        <el-avatar :size="40" :src="avatar" />
+        <el-avatar :size="40" :src="avatar" @click="handleAvatarClick" />
       </div>
       <div class="top-item">
         <el-icon size="30"><Message /></el-icon>
@@ -38,6 +38,25 @@
       </div>
     </div>
   </div>
+
+  <el-dialog v-model="dialogVisible" width="400px">
+    <div class="login-box">
+      <h1 style="text-align: center">登 录</h1>
+      <el-form :model="form" label-width="auto">
+        <el-form-item prop="username" label="用户名">
+          <el-input v-model="form.username"></el-input>
+        </el-form-item>
+        <el-form-item prop="password" label="密码">
+          <el-input
+            v-model="form.password"
+            type="password"
+            show-password
+          ></el-input>
+        </el-form-item>
+        <el-button class="login-btn" type="primary">登录</el-button>
+      </el-form>
+    </div>
+  </el-dialog>
 </template>
 
 <script setup lang="ts">
@@ -52,6 +71,16 @@ const searchHot = ref<string[]>([
   "的房价肯定会咖啡馆和尼克",
   "3",
 ]);
+
+const dialogVisible = ref(false);
+const form = ref({
+  username: "",
+  password: "",
+});
+
+const handleAvatarClick = () => {
+  dialogVisible.value = true;
+};
 
 onMounted(() => {
   window.addEventListener("scroll", () => {
@@ -122,5 +151,14 @@ onMounted(() => {
   background-color: $p-bg-color;
   box-shadow: $p-shadow;
   color: $text-color-dark;
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  padding: $l-padding;
+  .login-btn {
+    width: 100%;
+  }
 }
 </style>
