@@ -257,8 +257,8 @@ const handleLogout = async () => {
     width: 300px;
     background-color: $p-bg-color;
     border-radius: 4px;
-    transform: translateX(-50%);
-    opacity: 0;
+    left: -150px;
+    transform: scale(0);
     transition: all 0.3s ease-in-out;
     .user-info {
       display: flex;
@@ -294,17 +294,19 @@ const handleLogout = async () => {
       }
     }
   }
+  &:hover {
+    .avatar {
+      transform: scale(2) translate(-10px, 10px);
+    }
+    .avatar-popover {
+      transform: scale(1);
+    }
+  }
 
   .avatar {
     transition: all 0.3s ease-in-out;
     position: relative;
     z-index: 2;
-    &:hover {
-      transform: scale(2) translate(-10px, 10px);
-      & + .avatar-popover {
-        opacity: 1;
-      }
-    }
   }
 }
 </style>

@@ -14,7 +14,7 @@
       </el-button>
     </div>
 
-    <div class="search-content" :style="{ opacity: isShow ? 1 : 0 }">
+    <div class="search-content" v-show="isShow">
       <div class="search-history">
         <div class="search-history-title">
           <span>历史搜索</span>
