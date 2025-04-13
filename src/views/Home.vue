@@ -27,7 +27,12 @@
             </template>
             <template #default>
               <div
-                style="display: flex; flex-wrap: wrap; justify-content: center"
+                style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  justify-content: center;
+                  overflow: auto;
+                "
               >
                 <div
                   class="category-list-item"
@@ -58,13 +63,13 @@
           </el-carousel>
         </div>
         <div class="carousel-video-list">
-          <div class="video-card-item" v-for="(item, index) in videoCardList">
+          <div class="video-card-item" v-for="(item, index) in recommendList">
             <VideoCard :key="index" :videoCard="item" />
           </div>
         </div>
       </div>
       <div class="video-list">
-        <div class="video-list-item" v-for="(item, index) in videoCardList">
+        <div class="video-list-item" v-for="(item, index) in list">
           <VideoCard :key="index" :videoCard="item" />
         </div>
       </div>
@@ -75,108 +80,28 @@
 <script setup lang="ts">
 import avatar from "@/assets/images/avatar.jpg";
 import VideoCard from "@/components/video-card/index.vue";
+import { getCategory, getCarousel, getRecommend, getList } from "@/api/video";
+import type {
+  videoCarouselResponse,
+  videoCategoryResponse,
+  videoListResponse,
+} from "@/api/video/type";
 
-const categoryList = [
-  {
-    name: "编程",
-    list: ["java", "python", "c++", "c#", "php", "javascript", "go", "rust"],
-  },
-  {
-    name: "设计",
-    list: ["ps", "ai", "ae", "pr", "3dmax", "c4d", "maya", "zbrush"],
-  },
-  {
-    name: "摄影",
-    list: [],
-  },
-  {
-    name: "音乐",
-    list: [],
-  },
-  {
-    name: "影视",
-    list: [],
-  },
-  {
-    name: "游戏",
-    list: [],
-  },
-  {
-    name: "动漫",
-    list: [],
-  },
-  {
-    name: "体育",
-    list: [],
-  },
-  {
-    name: "科技",
-    list: [],
-  },
-  {
-    name: "生活",
-    list: [],
-  },
-  {
-    name: "学习",
-    list: [],
-  },
-  {
-    name: "其他",
-    list: [],
-  },
-];
+const categoryList = ref<videoCategoryResponse["data"]>([]);
+const carouselList = ref<videoCarouselResponse["data"]>([]);
+const recommendList = ref<videoListResponse["data"]>([]);
+const list = ref<videoListResponse["data"]>([]);
 
-const carouselList = [
-  {
-    img: avatar,
-  },
-  {
-    img: avatar,
-  },
-  {
-    img: avatar,
-  },
-];
-
-const videoCardList = [
-  {
-    img: avatar,
-    title: "视频标题",
-    createTime: "2025-04-13",
-    user: {
-      id: "1",
-      username: "用户名",
-    },
-  },
-  {
-    img: avatar,
-    title: "视频标题",
-    createTime: "2025-04-13",
-    user: {
-      id: "1",
-      username: "用户名",
-    },
-  },
-  {
-    img: avatar,
-    title: "视频标题",
-    createTime: "2025-04-13",
-    user: {
-      id: "1",
-      username: "用户名",
-    },
-  },
-  {
-    img: avatar,
-    title: "视频标题",
-    createTime: "2025-04-13",
-    user: {
-      id: "1",
-      username: "用户名",
-    },
-  },
-];
+onMounted(async () => {
+  const res = await getCategory();
+  categoryList.value = res.data;
+  const res2 = await getCarousel();
+  carouselList.value = res2.data;
+  const res3 = await getRecommend();
+  recommendList.value = res3.data;
+  const res4 = await getList();
+  list.value = res4.data;
+});
 </script>
 
 <style scoped lang="scss">
@@ -245,6 +170,9 @@ const videoCardList = [
   border-radius: 5px;
   padding: 0 $s-padding;
   cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   &:hover {
     background-color: $p-bg-color-deep;
   }

@@ -1,4 +1,5 @@
 import { MockHandler } from "vite-plugin-mock-server";
+import Mock from "mockjs";
 
 const users = [
   {
