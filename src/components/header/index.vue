@@ -248,11 +248,6 @@ const handleLogout = async () => {
 .avatar-box {
   position: relative;
 
-  .avatar {
-    transition: all 0.3s ease-in-out;
-    position: relative;
-    z-index: 2;
-  }
   .avatar-popover {
     box-shadow: $p-shadow;
     color: $text-color-deep;
@@ -299,12 +294,16 @@ const handleLogout = async () => {
       }
     }
   }
-  &:hover {
-    .avatar {
+
+  .avatar {
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    z-index: 2;
+    &:hover {
       transform: scale(2) translate(-10px, 10px);
-    }
-    .avatar-popover {
-      opacity: 1;
+      & + .avatar-popover {
+        opacity: 1;
+      }
     }
   }
 }
