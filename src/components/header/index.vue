@@ -13,20 +13,56 @@
     </div>
     <div class="right">
       <div class="top-item">
-        <el-dropdown placement="bottom">
+        <div class="avatar-box">
           <el-avatar
+            class="avatar"
             :size="40"
             :src="userStore.userInfo.avatar"
             @click="handleAvatarClick"
           />
-          <template #dropdown>
-            <el-dropdown-menu v-if="userStore.userInfo.username">
-              <el-dropdown-item @click="handleLogout"
-                >退出登录</el-dropdown-item
-              >
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+          <div class="avatar-popover">
+            <div style="text-align: center; margin-top: 32px">
+              {{ userStore.userInfo.username }}
+            </div>
+            <div class="user-info">
+              <div class="user-info-item">
+                <span>10</span>
+                <span>关注</span>
+              </div>
+              <div class="user-info-item">
+                <span>10</span>
+                <span>粉丝</span>
+              </div>
+              <div class="user-info-item">
+                <span>10</span>
+                <span>硬币</span>
+              </div>
+            </div>
+            <div class="user-setting">
+              <div class="user-setting-item">
+                <div>
+                  <el-icon><User /></el-icon>
+                  <span>个人中心</span>
+                </div>
+                <el-icon><ArrowRight /></el-icon>
+              </div>
+              <div class="user-setting-item">
+                <div>
+                  <el-icon><VideoPlay /></el-icon>
+                  <span>投稿管理</span>
+                </div>
+                <el-icon><ArrowRight /></el-icon>
+              </div>
+              <el-divider />
+              <div class="user-setting-item" @click="handleLogout">
+                <div>
+                  <el-icon><CircleClose /></el-icon>
+                  <span>退出登录</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="top-item">
         <el-icon size="30"><Message /></el-icon>
@@ -206,6 +242,70 @@ const handleLogout = async () => {
   padding: $l-padding;
   .login-btn {
     width: 100%;
+  }
+}
+
+.avatar-box {
+  position: relative;
+
+  .avatar {
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    z-index: 2;
+  }
+  .avatar-popover {
+    box-shadow: $p-shadow;
+    color: $text-color-deep;
+    position: absolute;
+    z-index: 1;
+    top: 120%;
+    width: 300px;
+    background-color: $p-bg-color;
+    border-radius: 4px;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+    .user-info {
+      display: flex;
+      justify-content: space-around;
+      margin-top: $m-margin;
+      .user-info-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    .user-setting {
+      margin-top: $m-margin;
+      padding: $l-padding;
+      .user-setting-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 48px;
+        border-radius: 4px;
+        div {
+          display: flex;
+          align-items: center;
+          margin-left: $l-margin;
+        }
+        i {
+          margin-right: $l-margin;
+        }
+        &:hover {
+          background-color: $p-bg-color-deep;
+        }
+      }
+    }
+  }
+  &:hover {
+    .avatar {
+      transform: scale(2) translate(-10px, 10px);
+    }
+    .avatar-popover {
+      opacity: 1;
+    }
   }
 }
 </style>
