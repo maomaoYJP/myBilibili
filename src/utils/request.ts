@@ -1,5 +1,6 @@
 import axios from "axios";
 import { ElMessage, ElMessageBox } from "element-plus";
+
 const request = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 2000,
@@ -7,6 +8,10 @@ const request = axios.create({
 
 request.interceptors.request.use(
   (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `${token}`;
+    }
     return config;
   },
   (error) => {
@@ -17,7 +22,7 @@ request.interceptors.request.use(
 request.interceptors.response.use(
   (response) => {
     const { code, message } = response.data;
-    if (code === "200") {
+    if (code === 200) {
       return response.data;
     }
     ElMessage.error(message || "请求失败");
@@ -26,7 +31,7 @@ request.interceptors.response.use(
   (error) => {
     if (error.response.data) {
       const { code, message } = error.response.data;
-      if (code === "401") {
+      if (code === 401) {
         ElMessageBox.confirm("登录过期，请重新登录", "提示", {
           confirmButtonText: "确定",
           type: "warning",

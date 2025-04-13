@@ -13,7 +13,20 @@
     </div>
     <div class="right">
       <div class="top-item">
-        <el-avatar :size="40" :src="avatar" @click="handleAvatarClick" />
+        <el-dropdown placement="bottom">
+          <el-avatar
+            :size="40"
+            :src="userStore.userInfo.avatar"
+            @click="handleAvatarClick"
+          />
+          <template #dropdown>
+            <el-dropdown-menu v-if="userStore.userInfo.username">
+              <el-dropdown-item @click="handleLogout"
+                >退出登录</el-dropdown-item
+              >
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
       <div class="top-item">
         <el-icon size="30"><Message /></el-icon>
@@ -53,7 +66,9 @@
             show-password
           ></el-input>
         </el-form-item>
-        <el-button class="login-btn" type="primary">登录</el-button>
+        <el-button class="login-btn" type="primary" @click="handleLogin">
+          登录
+        </el-button>
       </el-form>
     </div>
   </el-dialog>
@@ -61,7 +76,8 @@
 
 <script setup lang="ts">
 import Search from "@/components/search/index.vue";
-import avatar from "@/assets/images/avatar.jpg";
+
+import { ElMessage } from "element-plus";
 
 const scrolled = ref(false);
 
@@ -79,6 +95,11 @@ const form = ref({
 });
 
 const handleAvatarClick = () => {
+  const username = userStore.userInfo.username;
+  if (username) {
+    ElMessage.error("用户已登录");
+    return;
+  }
   dialogVisible.value = true;
 };
 
@@ -91,6 +112,32 @@ onMounted(() => {
     }
   });
 });
+
+import useUserStore from "@/stores/modules/user";
+import { login, getUserInfo, logout } from "@/api/user";
+const userStore = useUserStore();
+
+const handleLogin = async () => {
+  const res = await login(form.value);
+  if (res.code === 200) {
+    userStore.setToken(res.data.token);
+    const userInfo = await getUserInfo();
+    if (userInfo.code === 200) {
+      userStore.userInfo = userInfo.data;
+      dialogVisible.value = false;
+      ElMessage.success("登录成功");
+    }
+  }
+};
+
+const handleLogout = async () => {
+  const res = await logout();
+  if (res.code === 200) {
+    userStore.clearUserInfo();
+    ElMessage.success("退出登录成功");
+    window.location.reload();
+  }
+};
 </script>
 
 <style scoped lang="scss">
