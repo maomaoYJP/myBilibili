@@ -1,4 +1,4 @@
-import request from "@/utils/request";
+import request from "@/http/request";
 import type {
   videoCarouselResponse,
   videoCategoryResponse,
