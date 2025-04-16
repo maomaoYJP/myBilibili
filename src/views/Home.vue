@@ -16,7 +16,7 @@
             :show-arrow="false"
             v-for="category in categoryList"
             :key="category.name"
-            popper-style="padding: 0;"
+            popper-style="padding: 6px;"
             :width="200"
             :disabled="category.list.length === 0"
           >
@@ -26,14 +26,7 @@
               }}</el-button>
             </template>
             <template #default>
-              <div
-                style="
-                  display: flex;
-                  flex-wrap: wrap;
-                  justify-content: center;
-                  overflow: auto;
-                "
-              >
+              <div style="display: grid; grid-template-columns: 1fr 1fr">
                 <div
                   class="category-list-item"
                   v-for="item in category.list"
@@ -143,10 +136,10 @@ onMounted(async () => {
       flex: 1.3;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      overflow: hidden;
       .video-card-item {
         height: 200px;
         margin: 0 $s-margin;
-        margin-bottom: 16px;
       }
     }
   }
@@ -154,6 +147,7 @@ onMounted(async () => {
     margin-top: 48px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
     .video-list-item {
       width: 250px;
       height: 200px;
@@ -164,7 +158,7 @@ onMounted(async () => {
 }
 
 .category-list-item {
-  width: 80px;
+  width: 88px;
   height: 30px;
   line-height: 30px;
   border-radius: 5px;
