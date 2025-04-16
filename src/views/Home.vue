@@ -56,7 +56,11 @@
           </el-carousel>
         </div>
         <div class="carousel-video-list">
-          <div class="video-card-item" v-for="(item, index) in recommendList">
+          <div
+            class="video-card-item"
+            v-for="(item, index) in recommendList"
+            @click="toVideo"
+          >
             <VideoCard :key="index" :videoCard="item" />
           </div>
         </div>
@@ -95,6 +99,14 @@ onMounted(async () => {
   const res4 = await getList();
   list.value = res4.data;
 });
+
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const toVideo = () => {
+  router.push({ path: `video/${1313}` });
+};
 </script>
 
 <style scoped lang="scss">

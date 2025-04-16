@@ -139,6 +139,22 @@ const handleAvatarClick = () => {
   dialogVisible.value = true;
 };
 
+import { useRoute } from "vue-router";
+import { watch } from "vue";
+
+const route = useRoute();
+
+watch(
+  () => route.path,
+  (value) => {
+    if (value !== "/") {
+      scrolled.value = true;
+    } else {
+      scrolled.value = false;
+    }
+  }
+);
+
 onMounted(() => {
   window.addEventListener("scroll", () => {
     if (window.scrollY > 60) {
