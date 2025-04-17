@@ -7,7 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-/src/assets/video/*
+src/assets/video/*
 
 node_modules
 .DS_Store
