@@ -28,7 +28,9 @@
       <div class="user">
         <UserShow :src="avatar"></UserShow>
       </div>
-      <div class="danmu-list"></div>
+      <div class="danmu-list">
+        <DanMuList></DanMuList>
+      </div>
       <div class="recommend-video"></div>
     </div>
   </div>
@@ -37,6 +39,7 @@
 <script setup lang="ts">
 import UserShow from "@/components/user-show/index.vue";
 import Player from "@/components/player/index.vue";
+import DanMuList from "./components/DanMuList.vue";
 import avatar from "@/assets/images/avatar.jpg";
 </script>
 
@@ -46,7 +49,6 @@ import avatar from "@/assets/images/avatar.jpg";
   display: flex;
   width: $content-width;
   margin: 0 auto;
-  background-color: $p-bg-color-deep;
   .left-main {
     flex: 2;
     margin: $l-margin;
@@ -75,12 +77,15 @@ import avatar from "@/assets/images/avatar.jpg";
   }
 
   .right-aside {
-    flex: 1;
     display: flex;
-    height: 500px;
+    width: 400px;
+    flex-direction: column;
     padding: $l-padding;
     .user {
       height: 100px;
+    }
+    .danmu-list {
+      height: 500px;
     }
   }
 }
