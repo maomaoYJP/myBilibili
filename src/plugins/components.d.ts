@@ -31,6 +31,7 @@ declare module 'vue' {
     ElTag: typeof import('element-plus/es')['ElTag']
     Header: typeof import('./../components/header/index.vue')['default']
     Logo: typeof import('./../components/icon/logo.vue')['default']
+    Player: typeof import('./../components/player/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Search: typeof import('./../components/search/index.vue')['default']
