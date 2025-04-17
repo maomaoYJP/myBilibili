@@ -39,7 +39,6 @@ withDefaults(defineProps<{ height?: number; src: string }>(), {
   justify-content: center;
   align-items: center;
   width: 400px;
-  height: 100%;
   .avatar {
     width: 50px;
     border-radius: 50%;
