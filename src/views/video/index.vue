@@ -31,7 +31,13 @@
       <div class="danmu-list">
         <DanMuList></DanMuList>
       </div>
-      <div class="recommend-video"></div>
+      <div class="recommend-video">
+        <VideoCard
+          v-for="video in recommendList"
+          :key="video.title"
+          :videoCard="video"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -41,6 +47,16 @@ import UserShow from "@/components/user-show/index.vue";
 import Player from "@/components/player/index.vue";
 import DanMuList from "./components/DanMuList.vue";
 import avatar from "@/assets/images/avatar.jpg";
+import { getRecommend } from "@/api/video";
+import type { videoListResponse } from "@/api/video/type";
+import VideoCard from "@/components/video-card/card-recommend.vue";
+
+const recommendList = ref<videoListResponse["data"]>([]);
+
+onMounted(async () => {
+  const res3 = await getRecommend();
+  recommendList.value = res3.data;
+});
 </script>
 
 <style scoped lang="scss">
@@ -86,6 +102,10 @@ import avatar from "@/assets/images/avatar.jpg";
     }
     .danmu-list {
       height: 500px;
+    }
+    .recommend-video {
+      width: 100%;
+      height: 120px;
     }
   }
 }
