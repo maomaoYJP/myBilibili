@@ -1,6 +1,8 @@
 $max-width: 2500px;
 $min-width: 1400px;
 
+$content-width: 80%;
+
 $p-bg-color: #ffffff;
 $p-bg-color-deep: #f1f2f3;
 $p-shadow: 0 0 5px #e0e0e0;
@@ -10,6 +12,9 @@ $p-hover-shadow: 0 0 10px #e0e0e0;
 $text-color-light: #ffffff;
 $text-color-deep: #61666d;
 $text-color-dark: #000000;
+
+// 定义字体大小
+$s-text-size: 14px;
 
 // 定义padding
 $s-padding: 8px;
