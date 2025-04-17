@@ -19,8 +19,18 @@
         <div class="video">
           <Player></Player>
         </div>
-        <div class="video-like"></div>
-        <div class="video-tag"></div>
+        <div class="video-operation">
+          <VideoLike></VideoLike>
+          <VideoCoin></VideoCoin>
+          <VideoCollection></VideoCollection>
+        </div>
+        <el-divider />
+        <div class="video-tag">
+          <el-tag type="info">Tag 3</el-tag>
+          <el-tag type="info">Tag 3</el-tag>
+          <el-tag type="info">Tag 3</el-tag>
+        </div>
+        <el-divider />
         <div class="comment"></div>
       </div>
     </div>
@@ -47,6 +57,10 @@ import UserShow from "@/components/user-show/index.vue";
 import Player from "@/components/player/index.vue";
 import DanMuList from "./components/DanMuList.vue";
 import avatar from "@/assets/images/avatar.jpg";
+import VideoLike from "@/components/video-operation/video-like.vue";
+import VideoCoin from "@/components/video-operation/video-coin.vue";
+import VideoCollection from "@/components/video-operation/video-collection.vue";
+
 import { getRecommend } from "@/api/video";
 import type { videoListResponse } from "@/api/video/type";
 import VideoCard from "@/components/video-card/card-recommend.vue";
@@ -88,6 +102,16 @@ onMounted(async () => {
       .video {
         width: 100%;
         height: 100%;
+      }
+      .video-operation {
+        margin-top: $l-margin;
+        display: flex;
+        align-items: center;
+        gap: 48px;
+      }
+      .video-tag {
+        display: flex;
+        gap: 8px;
       }
     }
   }
