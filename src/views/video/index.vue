@@ -31,7 +31,9 @@
           <el-tag type="info">Tag 3</el-tag>
         </div>
         <el-divider />
-        <div class="comment"></div>
+        <div class="comment">
+          <Comment></Comment>
+        </div>
       </div>
     </div>
     <div class="right-aside">
@@ -60,6 +62,7 @@ import avatar from "@/assets/images/avatar.jpg";
 import VideoLike from "@/components/video-operation/video-like.vue";
 import VideoCoin from "@/components/video-operation/video-coin.vue";
 import VideoCollection from "@/components/video-operation/video-collection.vue";
+import Comment from "@/components/comment/index.vue";
 
 import { getRecommend } from "@/api/video";
 import type { videoListResponse } from "@/api/video/type";

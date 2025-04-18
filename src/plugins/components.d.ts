@@ -8,7 +8,10 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AutoHeightInput: typeof import('./../components/comment/auto-height-input.vue')['default']
     CardRecommend: typeof import('./../components/video-card/card-recommend.vue')['default']
+    Comment: typeof import('./../components/comment/index.vue')['default']
+    CommentBox: typeof import('./../components/comment/comment-box.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
@@ -25,6 +28,7 @@ declare module 'vue' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTag: typeof import('element-plus/es')['ElTag']
     Header: typeof import('./../components/header/index.vue')['default']
+    ImgShow: typeof import('./../components/img-show/index.vue')['default']
     Player: typeof import('./../components/player/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

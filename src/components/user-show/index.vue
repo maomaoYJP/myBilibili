@@ -1,13 +1,12 @@
 <template>
   <div class="user-container">
     <div>
-      <el-image
+      <ImgShow
         class="avatar"
-        :style="{ width: `${height}px`, height: `${height}px` }"
-        fit="cover"
-        :lazy="true"
+        :height="height"
+        :width="height"
         :src="src"
-      ></el-image>
+      ></ImgShow>
     </div>
     <div class="user-content">
       <span>maomao</span>
@@ -26,6 +25,7 @@
 
 <script setup lang="ts">
 import avatar from "@/assets/images/avatar.jpg";
+import ImgShow from "@/components/img-show/index.vue";
 
 withDefaults(defineProps<{ height?: number; src: string }>(), {
   height: 50,

@@ -149,20 +149,23 @@ watch(
   (value) => {
     if (value !== "/") {
       scrolled.value = true;
+      window.removeEventListener("scroll", handleScroll);
     } else {
       scrolled.value = false;
     }
   }
 );
 
+const handleScroll = () => {
+  if (window.scrollY > 60) {
+    scrolled.value = true;
+  } else {
+    scrolled.value = false;
+  }
+};
+
 onMounted(() => {
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 60) {
-      scrolled.value = true;
-    } else {
-      scrolled.value = false;
-    }
-  });
+  window.addEventListener("scroll", handleScroll);
 });
 
 import useUserStore from "@/stores/modules/user";
