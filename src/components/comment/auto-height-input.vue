@@ -32,6 +32,7 @@ onMounted(() => {
   resize: none;
   outline: none;
   overflow: hidden;
+  transition: background-color 0.3s;
   &:hover {
     outline: none;
     background-color: $p-bg-color;

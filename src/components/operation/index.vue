@@ -4,7 +4,7 @@
     :class="{ active: isActive }"
     @click="doClick"
   >
-    <i class="iconfont icon-yingbi"></i>
+    <slot></slot>
     <span>56</span>
   </div>
 </template>
@@ -17,7 +17,6 @@ const doClick = () => {
 </script>
 
 <style scoped lang="scss">
-@use "@/assets/iconfont/iconfont.css" as *;
 @use "sass:color";
 .video-coin-container {
   cursor: pointer;
