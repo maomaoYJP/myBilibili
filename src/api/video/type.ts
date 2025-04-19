@@ -24,3 +24,34 @@ export interface videoListResponse extends baseResponse {
     };
   }[];
 }
+
+export interface commentReply {
+  replyId: string;
+  replyUserId: string;
+  replyUserName: string;
+  replyUserAvatar: string;
+  replyContent: string;
+  replyLikeCount: number;
+  replyCreateTime: string;
+}
+
+export interface comment {
+  commentId: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  content: string;
+  likeCount: number;
+  replyCount: number;
+  createTime: string;
+  reples: commentReply[];
+}
+
+export interface videoCommentResponse extends baseResponse {
+  data: {
+    totalRecords: number;
+    currentPage: number;
+    pageSize: number;
+    comments: comment[];
+  };
+}

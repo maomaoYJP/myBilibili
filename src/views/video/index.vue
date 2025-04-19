@@ -64,7 +64,7 @@ import avatar from "@/assets/images/avatar.jpg";
 import Operation from "@/components/operation/index.vue";
 import Comment from "./components/comment/comment.vue";
 
-import { getRecommend } from "@/api/video";
+import { getRecommend, getVideoComment } from "@/api/video";
 import type { videoListResponse } from "@/api/video/type";
 import VideoCard from "@/components/video-card/card-recommend.vue";
 
@@ -73,6 +73,8 @@ const recommendList = ref<videoListResponse["data"]>([]);
 onMounted(async () => {
   const res3 = await getRecommend();
   recommendList.value = res3.data;
+  const result = await getVideoComment(1, 10);
+  console.log(result);
 });
 </script>
 

@@ -10,9 +10,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     AutoHeightInput: typeof import('./../components/comment/auto-height-input.vue')['default']
     CardRecommend: typeof import('./../components/video-card/card-recommend.vue')['default']
-    Comment: typeof import('./../components/comment/index.vue')['default']
-    CommentBox: typeof import('./../components/comment/comment-box.vue')['default']
-    CommentShow: typeof import('./../components/comment/comment-show.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']

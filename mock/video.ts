@@ -87,6 +87,52 @@ const mocks: MockHandler[] = [
       res.end(JSON.stringify(data));
     },
   },
+  {
+    pattern: "/api/video/comment",
+    handle: (req, res) => {
+      const { currentPage, pageSize } = req.query as {
+        currentPage?: string;
+        pageSize?: string;
+      };
+      const mockCommentReply = () => {
+        return Mock.mock({
+          replyId: "@id",
+          replyUserId: "@id",
+          replyUserName: "@cname",
+          replyUserAvatar: '@image("100x100", "#50B347", "#FFF", "Mock")',
+          replyContent: "@cparagraph",
+          replyLikeCount: "@integer(0, 100)",
+          replyCreateTime: "@datetime",
+        });
+      };
+      const mockComment = () => {
+        const replies = Mock.mock({
+          "array|1-5": [() => mockCommentReply()],
+        }).array;
+
+        return Mock.mock({
+          commentId: "@id",
+          userId: "@id",
+          userName: "@cname",
+          userAvatar: '@image("100x100", "#50B347", "#FFF", "Mock")',
+          content: "@cparagraph",
+          likeCount: "@integer(0, 100)",
+          replyCount: replies.length,
+          createTime: "@datetime",
+          replies,
+        });
+      };
+      const mockData = Mock.mock({
+        [`data|${pageSize}`]: [mockComment()],
+      });
+      const data = {
+        code: 200,
+        message: "success",
+        data: mockData.data,
+      };
+      res.end(JSON.stringify(data));
+    },
+  },
 ];
 
 export default mocks;
