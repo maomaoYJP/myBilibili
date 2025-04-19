@@ -5,7 +5,7 @@
     @click="doClick"
   >
     <slot></slot>
-    <span>56</span>
+    <span v-if="showNumber">56</span>
   </div>
 </template>
 
@@ -14,6 +14,10 @@ const isActive = ref(false);
 const doClick = () => {
   isActive.value = !isActive.value;
 };
+
+withDefaults(defineProps<{ showNumber?: boolean }>(), {
+  showNumber: true,
+});
 </script>
 
 <style scoped lang="scss">

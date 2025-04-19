@@ -20,9 +20,11 @@
           <Player></Player>
         </div>
         <div class="video-operation">
-          <VideoLike></VideoLike>
-          <VideoCoin></VideoCoin>
-          <VideoCollection></VideoCollection>
+          <Operation><i class="iconfont icon-good"></i></Operation>
+          <Operation>
+            <i class="iconfont icon-yingbi"></i>
+          </Operation>
+          <Operation><i class="iconfont icon-shoucang"></i></Operation>
         </div>
         <el-divider />
         <div class="video-tag">
@@ -59,10 +61,8 @@ import UserShow from "@/components/user-show/index.vue";
 import Player from "@/components/player/index.vue";
 import DanMuList from "./components/DanMuList.vue";
 import avatar from "@/assets/images/avatar.jpg";
-import VideoLike from "@/components/video-operation/video-like.vue";
-import VideoCoin from "@/components/video-operation/video-coin.vue";
-import VideoCollection from "@/components/video-operation/video-collection.vue";
-import Comment from "@/components/comment/index.vue";
+import Operation from "@/components/operation/index.vue";
+import Comment from "./components/comment/comment.vue";
 
 import { getRecommend } from "@/api/video";
 import type { videoListResponse } from "@/api/video/type";
@@ -111,6 +111,9 @@ onMounted(async () => {
         display: flex;
         align-items: center;
         gap: 48px;
+        i {
+          font-size: 30px;
+        }
       }
       .video-tag {
         display: flex;

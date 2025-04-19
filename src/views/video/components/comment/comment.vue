@@ -13,13 +13,19 @@ import Header from '@/components/header/index.vue';
       </div>
     </div>
     <div class="comment-box">
-      <CommentBox></CommentBox>
+      <div class="video-comment-input">
+        <VideoCommentInput></VideoCommentInput>
+      </div>
+      <div class="comment-show">
+        <CommentShow></CommentShow>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import CommentBox from "./comment-box.vue";
+import VideoCommentInput from "./components/video-comment-input.vue";
+import CommentShow from "./components/comment-show.vue";
 </script>
 
 <style scoped lang="scss">
@@ -47,6 +53,15 @@ import CommentBox from "./comment-box.vue";
         border-left: 1px solid $text-color-deep;
         margin: 0 $m-margin;
       }
+    }
+  }
+  .comment-box {
+    width: 100%;
+    .video-comment-input {
+      margin-top: $l-margin;
+    }
+    .comment-show {
+      margin-top: $l-margin;
     }
   }
 }

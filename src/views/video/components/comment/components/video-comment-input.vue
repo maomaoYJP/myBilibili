@@ -1,5 +1,5 @@
 <template>
-  <div class="comment-box-container">
+  <div class="video-comment-input-container">
     <div class="avatar-area">
       <ImgShow
         class="avatar"
@@ -30,8 +30,6 @@
 </template>
 
 <script setup lang="ts">
-import ImgShow from "@/components/img-show/index.vue";
-import AutoHeightInput from "./auto-height-input.vue";
 import avatar from "@/assets/images/avatar.jpg";
 
 const avatarHeight = 50;
@@ -39,10 +37,9 @@ const avatarHeight = 50;
 
 <style scoped lang="scss">
 @use "@/assets/iconfont/iconfont.css" as *;
-.comment-box-container {
+.video-comment-input-container {
   width: 100%;
   display: flex;
-  margin-top: $l-margin;
   .avatar-area {
     .avatar {
       border-radius: 50%;
@@ -58,8 +55,6 @@ const avatarHeight = 50;
       display: flex;
       margin-top: $s-margin;
       gap: 6px;
-      .input-operation {
-      }
       .submit {
         display: flex;
         flex: 1;
