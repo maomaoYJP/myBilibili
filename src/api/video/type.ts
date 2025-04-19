@@ -26,17 +26,19 @@ export interface videoListResponse extends baseResponse {
 }
 
 export interface commentReply {
+  id: string;
   replyId: string;
-  replyUserId: string;
-  replyUserName: string;
-  replyUserAvatar: string;
-  replyContent: string;
-  replyLikeCount: number;
-  replyCreateTime: string;
+  userId: string;
+  userName: string;
+  userAvatar: string;
+  content: string;
+  likeCount: number;
+  createTime: string;
+  isActive: boolean;
 }
 
 export interface comment {
-  commentId: string;
+  id: string;
   userId: string;
   userName: string;
   userAvatar: string;
@@ -44,7 +46,8 @@ export interface comment {
   likeCount: number;
   replyCount: number;
   createTime: string;
-  reples: commentReply[];
+  isActive: boolean;
+  replies: commentReply[];
 }
 
 export interface videoCommentResponse extends baseResponse {

@@ -91,18 +91,20 @@ const mocks: MockHandler[] = [
     pattern: "/api/video/comment",
     handle: (req, res) => {
       const { currentPage, pageSize } = req.query as {
-        currentPage?: string;
-        pageSize?: string;
+        currentPage?: number;
+        pageSize?: number;
       };
       const mockCommentReply = () => {
         return Mock.mock({
-          replyId: "@id",
-          replyUserId: "@id",
-          replyUserName: "@cname",
-          replyUserAvatar: '@image("100x100", "#50B347", "#FFF", "Mock")',
-          replyContent: "@cparagraph",
-          replyLikeCount: "@integer(0, 100)",
-          replyCreateTime: "@datetime",
+          id: "@id",
+          replyId: "",
+          userId: "@id",
+          userName: "@cname",
+          userAvatar: '@image("100x100", "#50B347", "#FFF", "Mock")',
+          content: "@cparagraph",
+          likeCount: "@integer(0, 100)",
+          createTime: "@datetime",
+          isActive: false,
         });
       };
       const mockComment = () => {
@@ -111,7 +113,7 @@ const mocks: MockHandler[] = [
         }).array;
 
         return Mock.mock({
-          commentId: "@id",
+          id: "@id",
           userId: "@id",
           userName: "@cname",
           userAvatar: '@image("100x100", "#50B347", "#FFF", "Mock")',
@@ -119,11 +121,25 @@ const mocks: MockHandler[] = [
           likeCount: "@integer(0, 100)",
           replyCount: replies.length,
           createTime: "@datetime",
+          isActive: false,
           replies,
         });
       };
       const mockData = Mock.mock({
-        [`data|${pageSize}`]: [mockComment()],
+        [`data|${pageSize}`]: {
+          totalRecords: 10,
+          currentPage: currentPage,
+          pageSize: pageSize,
+          [`comments|${pageSize}`]: [mockComment()],
+        },
+      });
+      mockData.data.totalRecords =
+        (currentPage || 1) * mockData.data.comments.length;
+      mockData.data.comments.forEach((comment) => {
+        const id = comment.id;
+        comment.replies.forEach((reply) => {
+          reply.replyId = id;
+        });
       });
       const data = {
         code: 200,

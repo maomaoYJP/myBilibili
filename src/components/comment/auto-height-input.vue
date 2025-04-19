@@ -1,6 +1,7 @@
 <template>
   <textarea
     rows="1"
+    :value="content"
     maxlength="512"
     class="text-area"
     placeholder="善语结善缘"
@@ -11,9 +12,15 @@
 
 <script setup lang="ts">
 const textareaRef = ref<HTMLTextAreaElement | null>(null);
+
+defineProps(["content"]);
+
+const emit = defineEmits(["update:content"]);
+
 const adjustHeight = () => {
   textareaRef.value!.style.height = "auto";
   textareaRef.value!.style.height = textareaRef.value!.scrollHeight + "px";
+  emit("update:content", textareaRef.value?.value);
 };
 
 onMounted(() => {

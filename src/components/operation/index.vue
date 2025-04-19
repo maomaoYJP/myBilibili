@@ -5,19 +5,25 @@
     @click="doClick"
   >
     <slot></slot>
-    <span v-if="showNumber">56</span>
+    <span v-if="showNumber">{{ count }}</span>
   </div>
 </template>
 
 <script setup lang="ts">
-const isActive = ref(false);
 const doClick = () => {
-  isActive.value = !isActive.value;
+  emit("click", props.isActive);
 };
 
-withDefaults(defineProps<{ showNumber?: boolean }>(), {
-  showNumber: true,
-});
+const emit = defineEmits(["click"]);
+
+const props = withDefaults(
+  defineProps<{ showNumber?: boolean; count?: number; isActive?: boolean }>(),
+  {
+    showNumber: true,
+    count: 0,
+    isActive: false,
+  }
+);
 </script>
 
 <style scoped lang="scss">

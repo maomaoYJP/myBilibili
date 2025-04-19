@@ -4,7 +4,7 @@ import Header from '@/components/header/index.vue';
     <div class="head">
       <div class="title">
         <span class="title-name">评论</span>
-        <span class="comment-count">10</span>
+        <span class="comment-count">{{ props.commentPages.totalRecords }}</span>
       </div>
       <div class="category">
         <RouterLink :to="'#'">最热</RouterLink>
@@ -17,7 +17,7 @@ import Header from '@/components/header/index.vue';
         <VideoCommentInput></VideoCommentInput>
       </div>
       <div class="comment-show">
-        <CommentShow></CommentShow>
+        <CommentShow :comments="props.commentPages.comments"></CommentShow>
       </div>
     </div>
   </div>
@@ -26,6 +26,19 @@ import Header from '@/components/header/index.vue';
 <script setup lang="ts">
 import VideoCommentInput from "./components/video-comment-input.vue";
 import CommentShow from "./components/comment-show.vue";
+import type { videoCommentResponse } from "@/api/video/type";
+
+const props = withDefaults(
+  defineProps<{ commentPages?: videoCommentResponse["data"] }>(),
+  {
+    commentPages: () => ({
+      totalRecords: 0,
+      currentPage: 1,
+      pageSize: 10,
+      comments: [],
+    }),
+  }
+);
 </script>
 
 <style scoped lang="scss">

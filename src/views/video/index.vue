@@ -34,7 +34,7 @@
         </div>
         <el-divider />
         <div class="comment">
-          <Comment></Comment>
+          <Comment :commentPages="videoComments"></Comment>
         </div>
       </div>
     </div>
@@ -65,16 +65,17 @@ import Operation from "@/components/operation/index.vue";
 import Comment from "./components/comment/comment.vue";
 
 import { getRecommend, getVideoComment } from "@/api/video";
-import type { videoListResponse } from "@/api/video/type";
+import type { videoListResponse, videoCommentResponse } from "@/api/video/type";
 import VideoCard from "@/components/video-card/card-recommend.vue";
 
 const recommendList = ref<videoListResponse["data"]>([]);
+const videoComments = ref<videoCommentResponse["data"]>();
 
 onMounted(async () => {
   const res3 = await getRecommend();
   recommendList.value = res3.data;
   const result = await getVideoComment(1, 10);
-  console.log(result);
+  videoComments.value = result.data;
 });
 </script>
 

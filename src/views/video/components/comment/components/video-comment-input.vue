@@ -9,7 +9,11 @@
       ></ImgShow>
     </div>
     <div class="comment-box">
-      <AutoHeightInput class="comment-input"></AutoHeightInput>
+      <AutoHeightInput
+        :content="content"
+        @update:content="handleInput"
+        class="comment-input"
+      ></AutoHeightInput>
       <div class="btn">
         <div class="input-operation">
           <el-button size="default">
@@ -20,7 +24,11 @@
           </el-button>
         </div>
         <div class="submit">
-          <el-button type="primary" size="default" style="width: 100px"
+          <el-button
+            type="primary"
+            size="default"
+            style="width: 100px"
+            @click="sendComment"
             >发送</el-button
           >
         </div>
@@ -31,6 +39,16 @@
 
 <script setup lang="ts">
 import avatar from "@/assets/images/avatar.jpg";
+
+defineProps(["content"]);
+const emit = defineEmits(["click", "update:content"]);
+const handleInput = (value: string) => {
+  emit("update:content", value);
+};
+
+const sendComment = () => {
+  emit("click");
+};
 
 const avatarHeight = 50;
 </script>
