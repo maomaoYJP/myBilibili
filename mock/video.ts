@@ -105,6 +105,7 @@ const mocks: MockHandler[] = [
           likeCount: "@integer(0, 100)",
           createTime: "@datetime",
           isActive: false,
+          "img|0-1": '@image("100x100", "#50B347", "#FFF", "@cname")',
         });
       };
       const mockComment = () => {
@@ -122,6 +123,7 @@ const mocks: MockHandler[] = [
           replyCount: replies.length,
           createTime: "@datetime",
           isActive: false,
+          "img|0-1": '@image("100x100", "#50B347", "#FFF", "@cname")',
           replies,
         });
       };
@@ -130,7 +132,7 @@ const mocks: MockHandler[] = [
           totalRecords: 10,
           currentPage: currentPage,
           pageSize: pageSize,
-          [`comments|${pageSize}`]: [mockComment()],
+          [`comments|${pageSize}`]: [() => mockComment()],
         },
       });
       mockData.data.totalRecords =

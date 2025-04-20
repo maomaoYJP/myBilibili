@@ -35,6 +35,7 @@ export interface commentReply {
   likeCount: number;
   createTime: string;
   isActive: boolean;
+  img?: string;
 }
 
 export interface comment {
@@ -47,6 +48,7 @@ export interface comment {
   replyCount: number;
   createTime: string;
   isActive: boolean;
+  img?: string;
   replies: commentReply[];
 }
 

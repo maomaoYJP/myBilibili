@@ -17,6 +17,7 @@ import Header from '@/components/header/index.vue';
         <VideoCommentInput
           v-model:content="topCommentData.content"
           @click="sendTopComment"
+          ref="topCommentInputRef"
         ></VideoCommentInput>
       </div>
       <div class="comment-show">
@@ -39,6 +40,11 @@ import Header from '@/components/header/index.vue';
               <p class="comment-content">
                 {{ comment.content }}
               </p>
+              <ImgShow
+                v-if="comment.img"
+                :src="comment.img"
+                :preview="true"
+              ></ImgShow>
               <div class="comment-operation">
                 <span class="date">{{ comment.createTime }}</span>
                 <span class="like"
@@ -89,6 +95,9 @@ import Header from '@/components/header/index.vue';
                     <span class="username">{{ reply.replyUsername }}</span>
                   </span>
                   <span class="reply-content">{{ reply.content }}</span>
+                  <div v-if="reply.img" class="reply-img">
+                    <ImgShow :src="reply.img" :preview="true"></ImgShow>
+                  </div>
                   <div class="comment-operation">
                     <span class="date">{{ reply.createTime }}</span>
                     <span class="like"
@@ -156,6 +165,7 @@ const avatarHeight = 50;
 const replyAvatarHeight = 30;
 const commentList = ref<comments[]>([]);
 const textareaRef = ref<textareaRefInstance[] | null>(null);
+const topCommentInputRef = ref<textareaRefInstance | null>(null);
 const sendCommentData = ref<reply>({
   id: RandomNumberSequence(16),
   replyId: "",
@@ -166,6 +176,7 @@ const sendCommentData = ref<reply>({
   likeCount: 0,
   createTime: getCurrentTime(),
   isActive: false,
+  img: "",
   replyUsername: "",
 });
 const topCommentData = ref<comment>({
@@ -178,11 +189,14 @@ const topCommentData = ref<comment>({
   replyCount: 0,
   createTime: getCurrentTime(),
   isActive: false,
+  img: "",
   replies: [],
 });
 
 interface textareaRefInstance {
   focus: () => void;
+  fileList: any;
+  deleteImg: () => void;
 }
 
 interface reply extends commentReply {
@@ -229,6 +243,10 @@ const userStore = useUserStore();
 const sendTopComment = () => {
   topCommentData.value.userName = userStore.userInfo.username;
   topCommentData.value.userAvatar = userStore.userInfo.avatar;
+  if (topCommentInputRef.value?.fileList[0]) {
+    topCommentData.value.img = topCommentInputRef.value?.fileList[0].url;
+  }
+
   if (topCommentData.value.content.length !== 0) {
     commentList.value.unshift(topCommentData.value as comments);
     clearTopCommentData();
@@ -243,6 +261,9 @@ const sendTopComment = () => {
 const sendComment = (comment: comment) => {
   sendCommentData.value.userName = userStore.userInfo.username;
   sendCommentData.value.userAvatar = userStore.userInfo.avatar;
+  if (textareaRef.value![0].fileList[0]) {
+    sendCommentData.value.img = textareaRef.value![0].fileList[0].url;
+  }
   if (sendCommentData.value.content.length !== 0) {
     comment.replies.push(sendCommentData.value);
     clearSendCommentData();
@@ -267,6 +288,7 @@ function clearSendCommentData() {
     isActive: false,
     replyUsername: sendCommentData.value.replyUsername,
   };
+  textareaRef.value![0].deleteImg();
 }
 
 function clearTopCommentData() {
@@ -282,6 +304,7 @@ function clearTopCommentData() {
     isActive: false,
     replies: [],
   };
+  topCommentInputRef.value?.deleteImg();
 }
 
 function RandomNumberSequence(len: number = 16) {
@@ -410,6 +433,9 @@ function getCurrentTime() {
                     margin-left: $l-margin;
                   }
                 }
+              }
+              .reply-img {
+                margin-top: $s-margin;
               }
             }
             .video-comment-input {

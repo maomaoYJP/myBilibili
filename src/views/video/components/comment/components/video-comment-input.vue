@@ -40,10 +40,31 @@
               </el-tab-pane>
             </el-tabs>
           </el-popover>
-
-          <el-button size="default">
-            <i class="iconfont icon-tupian"></i>
-          </el-button>
+          <el-upload
+            v-model:file-list="fileList"
+            list-type="picture"
+            :auto-upload="false"
+            :limit="1"
+            :on-exceed="handleExceed"
+            ref="upload"
+          >
+            <el-button size="default">
+              <i class="iconfont icon-tupian"></i>
+            </el-button>
+            <template #file="{ file }">
+              <el-popconfirm
+                title="确定删除图片？"
+                :hide-icon="true"
+                @confirm="deleteImg"
+              >
+                <template #reference>
+                  <div class="upload-img">
+                    <img class="img" :src="file.url" alt="" />
+                  </div>
+                </template>
+              </el-popconfirm>
+            </template>
+          </el-upload>
         </div>
         <div class="submit">
           <el-button
@@ -66,6 +87,9 @@ import avatar from "@/assets/images/avatar.jpg";
 
 const props = defineProps(["content"]);
 const emit = defineEmits(["click", "update:content", "emojiClick"]);
+
+const avatarHeight = 50;
+
 const handleInput = (value: string) => {
   emit("update:content", value);
 };
@@ -78,11 +102,21 @@ const emojiClick = (emoji: string) => {
   emit("update:content", props.content + emoji);
 };
 
-const avatarHeight = 50;
-
 interface textareaRefInstance {
   focus: () => void;
 }
+import type { UploadInstance, UploadProps, UploadRawFile } from "element-plus";
+const fileList = ref([]);
+const upload = ref<UploadInstance>();
+const handleExceed: UploadProps["onExceed"] = (files) => {
+  upload.value!.clearFiles();
+  const file = files[0] as UploadRawFile;
+  upload.value!.handleStart(file);
+};
+
+const deleteImg = () => {
+  upload.value!.clearFiles();
+};
 
 const textareaRef = ref<textareaRefInstance | null>(null);
 const focus = () => {
@@ -93,6 +127,8 @@ const focus = () => {
 
 defineExpose({
   focus,
+  fileList,
+  deleteImg,
 });
 </script>
 
@@ -115,10 +151,23 @@ defineExpose({
     .btn {
       display: flex;
       margin-top: $s-margin;
-      gap: 6px;
-      .submit {
+      .input-operation {
         display: flex;
         flex: 1;
+        gap: 6px;
+        .upload-img {
+          width: 50px;
+          height: 50px;
+          display: flex;
+          .img {
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+      .submit {
+        display: flex;
+
         justify-content: end;
       }
     }
