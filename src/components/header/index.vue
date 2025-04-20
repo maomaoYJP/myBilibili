@@ -2,7 +2,7 @@
   <div class="header-container" :class="{ scrolled: scrolled }">
     <div class="left">
       <i class="iconfont icon-bilibili-line" style="font-size: 42px"></i>
-      <span class="logo">首页</span>
+      <RouterLink :to="'/'" class="logo">首页</RouterLink>
     </div>
     <div class="center">
       <Search
@@ -151,6 +151,7 @@ watch(
       scrolled.value = true;
       window.removeEventListener("scroll", handleScroll);
     } else {
+      window.addEventListener("scroll", handleScroll);
       scrolled.value = false;
     }
   }
@@ -225,6 +226,7 @@ const handleLogout = async () => {
     margin-left: $s-padding;
     font-size: 24px;
     font-weight: 400;
+    color: $text-color-dark;
   }
   .center {
     position: absolute;
