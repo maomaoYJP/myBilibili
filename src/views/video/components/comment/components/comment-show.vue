@@ -96,6 +96,7 @@
             <VideoCommentInput
               v-model:content="sendCommentData.content"
               @click="sendComment(comment)"
+              ref="textareaRef"
             ></VideoCommentInput>
           </div>
           <el-divider></el-divider>
@@ -124,15 +125,20 @@ const sendCommentData = ref<reply>({
   isActive: false,
   replyUsername: "",
 });
+interface textareaRefInstance {
+  focus: () => void;
+}
+const textareaRef = ref<textareaRefInstance[] | null>(null);
 
 import type { comment, commentReply } from "@/api/video/type";
 
-interface comments extends comment {
-  showReply: boolean;
+interface reply extends commentReply {
+  replyUsername?: string;
 }
 
-interface reply extends commentReply {
-  replyUsername: string;
+interface comments extends comment {
+  showReply: boolean;
+  replies: reply[];
 }
 
 const commentList = ref<comments[]>([]);
@@ -153,9 +159,16 @@ watch(
 
 const showReply = (index: number, id: string, username: string) => {
   sendCommentData.value.replyId = id;
-  sendCommentData.value.replyUsername = username;
+  if (commentList.value[index].id !== id) {
+    sendCommentData.value.replyUsername = username;
+  } else {
+    sendCommentData.value.replyUsername = "";
+  }
   commentList.value.forEach((item) => (item.showReply = false));
   commentList.value[index].showReply = true;
+  nextTick(() => {
+    textareaRef.value![0].focus();
+  });
 };
 
 const commentLike = (state: boolean, reply: commentReply | comment) => {

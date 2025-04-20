@@ -34,8 +34,5 @@ declare module 'vue' {
     Search: typeof import('./../components/search/index.vue')['default']
     UserShow: typeof import('./../components/user-show/index.vue')['default']
     VideoCard: typeof import('./../components/video-card/index.vue')['default']
-    VideoCoin: typeof import('./../components/operation/video-coin.vue')['default']
-    VideoCollection: typeof import('./../components/operation/video-collection.vue')['default']
-    VideoLike: typeof import('./../components/operation/video-like.vue')['default']
   }
 }

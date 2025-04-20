@@ -22,6 +22,15 @@ const adjustHeight = () => {
   textareaRef.value!.style.height = textareaRef.value!.scrollHeight + "px";
   emit("update:content", textareaRef.value?.value);
 };
+const focus = () => {
+  if (textareaRef.value) {
+    textareaRef.value.focus();
+  }
+};
+
+defineExpose({
+  focus,
+});
 
 onMounted(() => {
   adjustHeight();

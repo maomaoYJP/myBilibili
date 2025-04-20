@@ -13,6 +13,7 @@
         :content="content"
         @update:content="handleInput"
         class="comment-input"
+        ref="textareaRef"
       ></AutoHeightInput>
       <div class="btn">
         <div class="input-operation">
@@ -38,6 +39,7 @@
 </template>
 
 <script setup lang="ts">
+import AutoHeightInput from "@/components/comment/auto-height-input.vue";
 import avatar from "@/assets/images/avatar.jpg";
 
 defineProps(["content"]);
@@ -51,6 +53,21 @@ const sendComment = () => {
 };
 
 const avatarHeight = 50;
+
+interface textareaRefInstance {
+  focus: () => void;
+}
+
+const textareaRef = ref<textareaRefInstance | null>(null);
+const focus = () => {
+  if (textareaRef.value) {
+    textareaRef.value.focus();
+  }
+};
+
+defineExpose({
+  focus,
+});
 </script>
 
 <style scoped lang="scss">

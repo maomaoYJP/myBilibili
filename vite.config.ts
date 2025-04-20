@@ -25,6 +25,7 @@ const mockServerPlugin = mockServer({
 });
 
 export default defineConfig({
+  base: "./",
   plugins: [vue(), autoImport, components, mockServerPlugin],
   envDir: path.resolve(__dirname, "./env"),
   resolve: {
