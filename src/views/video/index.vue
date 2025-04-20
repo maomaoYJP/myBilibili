@@ -35,6 +35,9 @@
         <el-divider />
         <div class="comment">
           <Comment :commentPages="videoComments"></Comment>
+          <div class="load-more-container" ref="loadMore">
+            <div class="load-more"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -69,14 +72,50 @@ import type { videoListResponse, videoCommentResponse } from "@/api/video/type";
 import VideoCard from "@/components/video-card/card-recommend.vue";
 
 const recommendList = ref<videoListResponse["data"]>([]);
+// const videoComments = reactive<videoCommentResponse["data"]>({
+//   currentPage: 1,
+//   pageSize: 10,
+//   totalRecords: 10,
+//   comments: [],
+// });
 const videoComments = ref<videoCommentResponse["data"]>();
+const loadMore = ref<HTMLDivElement | null>(null);
+const currentPage = ref(1);
 
 onMounted(async () => {
   const res3 = await getRecommend();
   recommendList.value = res3.data;
-  const result = await getVideoComment(1, 10);
+  const result = await getVideoComment(currentPage.value, 10);
   videoComments.value = result.data;
+  if (loadMore.value) {
+    observer.observe(loadMore.value);
+  }
 });
+
+//配置加载更多
+const options = {
+  root: null,
+  rootMargin: "0px",
+  threshold: 0.1,
+};
+
+const callback = (entries: any, observer: any) => {
+  entries.forEach(async (entry: any) => {
+    if (entry.isIntersecting) {
+      // 加载更多
+      currentPage.value += 1;
+      const result = await getVideoComment(currentPage.value, 10);
+      const { pageSize, totalRecords, comments } = result.data;
+      videoComments.value!.currentPage = result.data.currentPage;
+      videoComments.value!.pageSize = pageSize;
+      videoComments.value!.totalRecords = totalRecords;
+      videoComments.value!.comments =
+        videoComments.value!.comments.concat(comments);
+    }
+  });
+};
+
+const observer = new IntersectionObserver(callback, options);
 </script>
 
 <style scoped lang="scss">
@@ -121,6 +160,29 @@ onMounted(async () => {
       .video-tag {
         display: flex;
         gap: 8px;
+      }
+      .comment {
+        width: 100%;
+        .load-more-container {
+          width: 100%;
+          height: 50px;
+          position: relative;
+          .load-more {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            left: 50%;
+            border: 3px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: #409eff;
+            animation: spin 1s linear infinite;
+          }
+          @keyframes spin {
+            to {
+              transform: rotate(360deg);
+            }
+          }
+        }
       }
     }
   }
