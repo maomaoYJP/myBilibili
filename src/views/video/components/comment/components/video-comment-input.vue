@@ -17,9 +17,30 @@
       ></AutoHeightInput>
       <div class="btn">
         <div class="input-operation">
-          <el-button size="default">
-            <i class="iconfont icon-emojilight"></i>
-          </el-button>
+          <el-popover placement="bottom" width="400">
+            <template #reference>
+              <el-button size="default">
+                <i class="iconfont icon-emojilight"></i>
+              </el-button>
+            </template>
+            <el-tabs>
+              <el-tab-pane
+                v-for="emojis in emojiList"
+                :key="emojis.name"
+                :label="emojis.name"
+                class="emoji-container"
+              >
+                <div
+                  class="emoji"
+                  v-for="emoji in emojis.list"
+                  @click="emojiClick(emoji)"
+                >
+                  {{ emoji }}
+                </div>
+              </el-tab-pane>
+            </el-tabs>
+          </el-popover>
+
           <el-button size="default">
             <i class="iconfont icon-tupian"></i>
           </el-button>
@@ -39,17 +60,22 @@
 </template>
 
 <script setup lang="ts">
+import emojiList from "@/assets/emoji";
 import AutoHeightInput from "@/components/comment/auto-height-input.vue";
 import avatar from "@/assets/images/avatar.jpg";
 
-defineProps(["content"]);
-const emit = defineEmits(["click", "update:content"]);
+const props = defineProps(["content"]);
+const emit = defineEmits(["click", "update:content", "emojiClick"]);
 const handleInput = (value: string) => {
   emit("update:content", value);
 };
 
 const sendComment = () => {
   emit("click");
+};
+
+const emojiClick = (emoji: string) => {
+  emit("update:content", props.content + emoji);
 };
 
 const avatarHeight = 50;
@@ -96,6 +122,16 @@ defineExpose({
         justify-content: end;
       }
     }
+  }
+}
+
+.emoji-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+  gap: $m-margin;
+  .emoji {
+    font-size: $m-text-size;
+    cursor: pointer;
   }
 }
 </style>
