@@ -1,8 +1,8 @@
 <template>
   <div class="header-container" :class="{ scrolled: scrolled }">
-    <div class="left">
+    <div class="left" @click="toHome">
       <i class="iconfont icon-bilibili-line" style="font-size: 42px"></i>
-      <RouterLink :to="'/'" class="logo">首页</RouterLink>
+      <span :to="'/'" class="logo">首页</span>
     </div>
     <div class="center">
       <Search
@@ -194,6 +194,14 @@ const handleLogout = async () => {
     window.location.reload();
   }
 };
+
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const toHome = () => {
+  router.push({ path: `/` });
+};
 </script>
 
 <style scoped lang="scss">
@@ -226,7 +234,7 @@ const handleLogout = async () => {
     margin-left: $s-padding;
     font-size: 24px;
     font-weight: 400;
-    color: $text-color-dark;
+    cursor: pointer;
   }
   .center {
     position: absolute;

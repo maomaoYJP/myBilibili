@@ -72,12 +72,6 @@ import type { videoListResponse, videoCommentResponse } from "@/api/video/type";
 import VideoCard from "@/components/video-card/card-recommend.vue";
 
 const recommendList = ref<videoListResponse["data"]>([]);
-// const videoComments = reactive<videoCommentResponse["data"]>({
-//   currentPage: 1,
-//   pageSize: 10,
-//   totalRecords: 10,
-//   comments: [],
-// });
 const videoComments = ref<videoCommentResponse["data"]>();
 const loadMore = ref<HTMLDivElement | null>(null);
 const currentPage = ref(1);
@@ -143,10 +137,9 @@ const observer = new IntersectionObserver(callback, options);
       }
     }
     .video-area {
-      height: 500px;
       .video {
         width: 100%;
-        height: 100%;
+        height: 500px;
       }
       .video-operation {
         margin-top: $l-margin;

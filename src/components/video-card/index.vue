@@ -6,6 +6,7 @@
       :src="videoCard.img"
       alt="carousel"
       :lazy="true"
+      @click="toVideo"
     >
       <template #placeholder>
         <div class="video-card-placeholder">
@@ -14,10 +15,14 @@
       </template>
     </el-image>
     <div class="video-card-info">
-      <span class="video-card-title">{{ videoCard.title }}</span>
+      <router-link :to="'/video/123'" class="video-card-title">{{
+        videoCard.title
+      }}</router-link>
       <div class="user-info">
-        <span class="user-name">{{ videoCard.user.username }}</span>
-        <span class="user-time"> · {{ videoCard.createTime }}</span>
+        <router-link :to="'/user/123'">
+          <span class="user-name">{{ videoCard.user.username }}</span>
+          <span class="user-time"> · {{ videoCard.createTime }}</span>
+        </router-link>
       </div>
     </div>
   </div>
@@ -35,6 +40,11 @@ defineProps<{
     };
   };
 }>();
+import { useRouter } from "vue-router";
+const router = useRouter();
+const toVideo = () => {
+  router.push({ path: `video/${1313}` });
+};
 </script>
 
 <style scoped lang="scss">
@@ -48,6 +58,7 @@ defineProps<{
     height: 100%;
     position: relative;
     border-radius: 4px;
+    cursor: pointer;
   }
   .video-card-info {
     font-size: 14px;
