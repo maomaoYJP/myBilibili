@@ -1,5 +1,8 @@
 <template>
-  <div class="header-container" :class="{ scrolled: scrolled }">
+  <div
+    class="header-container"
+    :class="{ scrolled: settingStore.header.active }"
+  >
     <div class="left" @click="toHome">
       <i class="iconfont icon-bilibili-line" style="font-size: 42px"></i>
       <span :to="'/'" class="logo">首页</span>
@@ -8,7 +11,7 @@
       <Search
         :searchHistory="searchHistory"
         :searchHot="searchHot"
-        :class="{ scrolled: scrolled }"
+        :class="{ scrolled: settingStore.header.active }"
       />
     </div>
     <div class="right">
@@ -115,8 +118,6 @@ import Search from "@/components/search/index.vue";
 
 import { ElMessage } from "element-plus";
 
-const scrolled = ref(false);
-
 const searchHistory = ref<string[]>(["1", "2", "3"]);
 const searchHot = ref<string[]>([
   "十九日覅是否黑文化",
@@ -139,35 +140,30 @@ const handleAvatarClick = () => {
   dialogVisible.value = true;
 };
 
-import { useRoute } from "vue-router";
-import { watch } from "vue";
-
-const route = useRoute();
-
-watch(
-  () => route.path,
-  (value) => {
-    if (value !== "/") {
-      scrolled.value = true;
-      window.removeEventListener("scroll", handleScroll);
-    } else {
-      window.addEventListener("scroll", handleScroll);
-      scrolled.value = false;
-    }
-  }
-);
-
 const handleScroll = () => {
   if (window.scrollY > 60) {
-    scrolled.value = true;
+    settingStore.header.active = true;
   } else {
-    scrolled.value = false;
+    settingStore.header.active = false;
   }
 };
 
-onMounted(() => {
-  window.addEventListener("scroll", handleScroll);
-});
+import useSettingStore from "@/stores/modules/setting";
+const settingStore = useSettingStore();
+
+watch(
+  () => settingStore.header.AutoActive,
+  (value) => {
+    if (value) {
+      window.addEventListener("scroll", handleScroll);
+    } else {
+      window.removeEventListener("scroll", handleScroll);
+    }
+  },
+  {
+    immediate: true,
+  }
+);
 
 import useUserStore from "@/stores/modules/user";
 import { login, getUserInfo, logout } from "@/api/user";

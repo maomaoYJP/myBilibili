@@ -14,6 +14,11 @@ const router = createRouter({
       name: "video",
       component: () => import("@/views/video/index.vue"),
     },
+    {
+      path: "/user/:id",
+      name: "user",
+      component: () => import("@/views/user/index.vue"),
+    },
   ],
 });
 

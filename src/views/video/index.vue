@@ -76,7 +76,11 @@ const videoComments = ref<videoCommentResponse["data"]>();
 const loadMore = ref<HTMLDivElement | null>(null);
 const currentPage = ref(1);
 
+import useSettingStore from "@/stores/modules/setting";
+const settingStore = useSettingStore();
+
 onMounted(async () => {
+  settingStore.banAutoActive();
   const res3 = await getRecommend();
   recommendList.value = res3.data;
   const result = await getVideoComment(currentPage.value, 10);
