@@ -28,12 +28,18 @@
         </div>
       </div>
     </div>
-    <div class="main">121</div>
+    <div class="top-header">
+      <div style="margin: 0 10%"><TopHeader></TopHeader></div>
+    </div>
+    <div class="main">
+      <RouterView></RouterView>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import avatar from "@/assets/images/avatar.jpg";
+import TopHeader from "./components/TopHeader.vue";
 
 import useSettingStore from "@/stores/modules/setting";
 const settingStore = useSettingStore();
@@ -47,9 +53,15 @@ onMounted(() => {
 <style scoped lang="scss">
 .user-container {
   width: 100%;
+  .top-header {
+    position: sticky;
+    top: 0;
+    border-bottom: 1px solid $p-bg-color-deep;
+  }
   .main {
     width: $content-width;
     margin: 0 auto;
+    position: relative;
     height: 10000px;
   }
   .banner-area {
