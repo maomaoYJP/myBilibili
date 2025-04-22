@@ -45,6 +45,7 @@ const mocks: MockHandler[] = [
         code: 200,
         message: "success",
         data: {
+          userId: user?.userId,
           username: user?.username,
           avatar: user?.avatar,
         },

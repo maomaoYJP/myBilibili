@@ -17,6 +17,7 @@ export interface loginResponse extends baseResponse {
 
 export interface userInfoResponse extends baseResponse {
   data: {
+    userId: string;
     username: string;
     avatar: string;
   };

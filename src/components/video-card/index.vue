@@ -15,14 +15,12 @@
       </template>
     </el-image>
     <div class="video-card-info">
-      <router-link :to="'/video/123'" class="video-card-title">{{
-        videoCard.title
-      }}</router-link>
+      <a :href="'/video/123'" class="video-card-title">{{ videoCard.title }}</a>
       <div class="user-info">
-        <router-link :to="'/user/123'">
+        <a :href="'/user/' + videoCard.user.id">
           <span class="user-name">{{ videoCard.user.username }}</span>
           <span class="user-time"> · {{ videoCard.createTime }}</span>
-        </router-link>
+        </a>
       </div>
     </div>
   </div>

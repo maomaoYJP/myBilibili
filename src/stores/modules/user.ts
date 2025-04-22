@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 
 interface UserInfo {
+  userId: string;
   username: string;
   avatar: string;
   token?: string;
@@ -8,6 +9,7 @@ interface UserInfo {
 
 const useUserStore = defineStore("user", () => {
   const userInfo = ref<UserInfo>({
+    userId: "",
     username: "",
     avatar: "",
     token: localStorage.getItem("token") || "",
@@ -20,6 +22,7 @@ const useUserStore = defineStore("user", () => {
 
   const clearUserInfo = () => {
     userInfo.value = {
+      userId: "",
       username: "",
       avatar: "",
       token: "",

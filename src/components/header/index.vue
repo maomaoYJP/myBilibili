@@ -21,7 +21,7 @@
             class="avatar"
             :size="40"
             :src="userStore.userInfo.avatar"
-            @click="handleAvatarClick"
+            @click="userLogin"
           />
           <div class="avatar-popover">
             <div style="text-align: center; margin-top: 32px">
@@ -42,7 +42,7 @@
               </div>
             </div>
             <div class="user-setting">
-              <div class="user-setting-item">
+              <div class="user-setting-item" @click="toUserHome">
                 <div>
                   <el-icon><User /></el-icon>
                   <span>个人中心</span>
@@ -117,6 +117,9 @@
 import Search from "@/components/search/index.vue";
 
 import { ElMessage } from "element-plus";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const searchHistory = ref<string[]>(["1", "2", "3"]);
 const searchHot = ref<string[]>([
@@ -131,13 +134,16 @@ const form = ref({
   password: "",
 });
 
-const handleAvatarClick = () => {
+const userLogin = () => {
   const username = userStore.userInfo.username;
-  if (username) {
-    ElMessage.error("用户已登录");
-    return;
+  if (!username) {
+    dialogVisible.value = true;
   }
-  dialogVisible.value = true;
+};
+
+const toUserHome = () => {
+  const userId = userStore.userInfo.userId;
+  router.push({ path: `/user/${userId}` });
 };
 
 const handleScroll = () => {
@@ -190,10 +196,6 @@ const handleLogout = async () => {
     window.location.reload();
   }
 };
-
-import { useRouter } from "vue-router";
-
-const router = useRouter();
 
 const toHome = () => {
   router.push({ path: `/` });
