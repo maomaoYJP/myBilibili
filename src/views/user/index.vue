@@ -34,6 +34,14 @@
 
 <script setup lang="ts">
 import avatar from "@/assets/images/avatar.jpg";
+
+import useSettingStore from "@/stores/modules/setting";
+const settingStore = useSettingStore();
+
+onMounted(() => {
+  settingStore.header.AutoActive = false;
+  settingStore.header.fixTop = true;
+});
 </script>
 
 <style scoped lang="scss">

@@ -2,6 +2,7 @@
   <div
     class="header-container"
     :class="{ scrolled: settingStore.header.active }"
+    :style="{ position: settingStore.header.fixTop ? 'relative' : 'sticky' }"
   >
     <div class="left" @click="toHome">
       <i class="iconfont icon-bilibili-line" style="font-size: 42px"></i>

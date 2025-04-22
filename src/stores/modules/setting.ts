@@ -4,6 +4,7 @@ const useSettingStore = defineStore("setting", () => {
   const header = reactive({
     active: false,
     AutoActive: true,
+    fixTop: false,
   });
 
   const banAutoActive = () => {
