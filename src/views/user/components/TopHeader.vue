@@ -8,7 +8,9 @@
           :class="{ active: activeIndex === 0 }"
         >
           <i class="iconfont icon-zhuye"></i>
-          <RouterLink to="/user/home">主页</RouterLink>
+          <RouterLink :to="`/user/${userStore.userInfo.userId}/home`"
+            >主页</RouterLink
+          >
         </div>
         <div
           @click="activeIndex = 1"
@@ -16,7 +18,9 @@
           :class="{ active: activeIndex === 1 }"
         >
           <i class="iconfont icon-dongtai"></i>
-          <RouterLink>动态</RouterLink>
+          <RouterLink :to="`/user/${userStore.userInfo.userId}/dynamic`"
+            >动态</RouterLink
+          >
         </div>
         <div
           @click="activeIndex = 2"
@@ -24,7 +28,9 @@
           :class="{ active: activeIndex === 2 }"
         >
           <i class="iconfont icon-dianshi"></i>
-          <RouterLink>投稿</RouterLink>
+          <RouterLink :to="`/user/${userStore.userInfo.userId}/upload/video`"
+            >投稿</RouterLink
+          >
         </div>
         <div
           @click="activeIndex = 3"
@@ -32,7 +38,9 @@
           :class="{ active: activeIndex === 3 }"
         >
           <i class="iconfont icon-heji"></i>
-          <RouterLink>合集</RouterLink>
+          <RouterLink :to="`/user/${userStore.userInfo.userId}/lists`"
+            >合集</RouterLink
+          >
         </div>
         <div
           @click="activeIndex = 4"
@@ -40,7 +48,9 @@
           :class="{ active: activeIndex === 4 }"
         >
           <i class="iconfont icon-a-shoucang-yishoucang"></i>
-          <RouterLink>收藏</RouterLink>
+          <RouterLink :to="`/user/${userStore.userInfo.userId}/favlist`"
+            >收藏</RouterLink
+          >
         </div>
       </div>
       <div
@@ -73,6 +83,8 @@
 
 <script setup lang="ts">
 const activeIndex = ref(0);
+import useUserStore from "@/stores/modules/user";
+const userStore = useUserStore();
 </script>
 
 <style scoped lang="scss">
