@@ -58,12 +58,12 @@ onMounted(() => {
     top: 0;
     border-bottom: 1px solid $p-bg-color-deep;
     z-index: 2;
+    background-color: $p-bg-color;
   }
   .main {
     width: $content-width;
     margin: 0 auto;
     position: relative;
-    height: 10000px;
   }
   .banner-area {
     position: relative;

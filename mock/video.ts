@@ -1,6 +1,22 @@
 import { MockHandler } from "vite-plugin-mock-server";
 import Mock from "mockjs";
 
+const totalRecords = 234;
+
+const mockData = Mock.mock({
+  [`data|${totalRecords}`]: [
+    {
+      img: Mock.Random.image("200x100", "#000", "#fff", "@cname"),
+      title: "@cname",
+      createTime: "@date",
+      user: {
+        id: "@id",
+        username: "@cname",
+      },
+    },
+  ],
+});
+
 const mocks: MockHandler[] = [
   {
     pattern: "/api/video/category",
@@ -66,23 +82,23 @@ const mocks: MockHandler[] = [
   {
     pattern: "/api/video/list",
     handle: (req, res) => {
-      const mockData = Mock.mock({
-        "data|10-20": [
-          {
-            img: Mock.Random.image("200x100", "#000", "#fff", "@cname"),
-            title: "@cname",
-            createTime: "@date",
-            user: {
-              id: "@id",
-              username: "@cname",
-            },
-          },
-        ],
-      });
+      const { currentPage = 1, pageSize = 20 } = req.query as {
+        currentPage?: number;
+        pageSize?: number;
+      };
+
       const data = {
         code: 200,
         message: "success",
-        data: mockData.data,
+        data: {
+          totalRecords: mockData.data.length,
+          currentPage: currentPage,
+          pageSize: pageSize,
+          videoList: mockData.data.slice(
+            (currentPage - 1) * pageSize,
+            currentPage * pageSize
+          ),
+        },
       };
       res.end(JSON.stringify(data));
     },

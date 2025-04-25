@@ -4,6 +4,7 @@ import type {
   videoCategoryResponse,
   videoListResponse,
   videoCommentResponse,
+  videoRecommendListResponse,
 } from "./type";
 enum API {
   CATEGORY = "/video/category",
@@ -19,9 +20,12 @@ export const getCarousel = () =>
   request.get<any, videoCarouselResponse>(API.CAROUSEL);
 
 export const getRecommend = () =>
-  request.get<any, videoListResponse>(API.RECOMMEND);
+  request.get<any, videoRecommendListResponse>(API.RECOMMEND);
 
-export const getList = () => request.get<any, videoListResponse>(API.LIST);
+export const getList = (currentPage: number, pageSize: number) =>
+  request.get<any, videoListResponse>(
+    API.LIST + `?currentPage=${currentPage}&pageSize=${pageSize}`
+  );
 
 export const getVideoComment = (currentPage: number, pageSize: number) => {
   return request.get<any, videoCommentResponse>(

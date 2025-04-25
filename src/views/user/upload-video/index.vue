@@ -10,14 +10,67 @@
         </SortButton>
       </div>
     </div>
-    <div class="video-list"></div>
-    <div class="page"></div>
+    <div class="video-list">
+      <div class="video-card-item" v-for="(item, index) in list">
+        <VideoCard :key="index" :videoCard="item" />
+      </div>
+    </div>
+    <div class="page">
+      <el-pagination
+        v-model:current-page="currentPage"
+        v-model:page-size="pageSize"
+        :page-sizes="[20, 25, 30, 40]"
+        :background="true"
+        layout="prev, pager, next, total, sizes, jumper"
+        :total="total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import SortButton from "@/components/sort-button/sort-button.vue";
 import SortButtonItem from "@/components/sort-button/sort-button-item.vue";
+import VideoCard from "@/components/video-card/index.vue";
+import { getList } from "@/api/video";
+import type { video } from "@/api/video/type";
+
+const list = ref<video[]>([]);
+
+const currentPage = ref(1);
+const pageSize = ref(20);
+const total = ref(0);
+
+const getPage = async (cur?: number, size?: number) => {
+  if (cur) {
+    currentPage.value = cur;
+  }
+  if (size) {
+    pageSize.value = size;
+  }
+  window.scroll({
+    top: 0,
+  });
+  const res = await getList(currentPage.value, pageSize.value);
+  list.value = res.data.videoList;
+  total.value = res.data.totalRecords;
+  return res;
+};
+
+onMounted(() => {
+  getPage(currentPage.value, pageSize.value);
+});
+
+const handleSizeChange = (size: number) => {
+  list.value = [];
+  getPage(1, size);
+};
+
+const handleCurrentChange = () => {
+  getPage();
+};
 
 const sortBtnClick = (e: any) => {
   // console.log(e);
@@ -27,5 +80,28 @@ const sortBtnClick = (e: any) => {
 <style scoped lang="scss">
 .upload-video-container {
   width: 100%;
+  .header {
+    .title {
+      font-size: $m-text-size;
+      margin: $l-margin 0;
+    }
+    .sort {
+      margin-bottom: $l-margin;
+    }
+  }
+  .video-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    overflow: hidden;
+    gap: $s-margin;
+    .video-card-item {
+      height: 200px;
+    }
+  }
+  .page {
+    display: flex;
+    justify-content: center;
+    margin: $l-margin 0;
+  }
 }
 </style>

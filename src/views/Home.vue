@@ -76,13 +76,16 @@ import { getCategory, getCarousel, getRecommend, getList } from "@/api/video";
 import type {
   videoCarouselResponse,
   videoCategoryResponse,
-  videoListResponse,
+  video,
 } from "@/api/video/type";
 
 const categoryList = ref<videoCategoryResponse["data"]>([]);
 const carouselList = ref<videoCarouselResponse["data"]>([]);
-const recommendList = ref<videoListResponse["data"]>([]);
-const list = ref<videoListResponse["data"]>([]);
+const recommendList = ref<video[]>([]);
+const list = ref<video[]>([]);
+
+const currentPage = ref(1);
+const pageSize = ref(20);
 
 onMounted(async () => {
   const res = await getCategory();
@@ -91,8 +94,8 @@ onMounted(async () => {
   carouselList.value = res2.data;
   const res3 = await getRecommend();
   recommendList.value = res3.data;
-  const res4 = await getList();
-  list.value = res4.data;
+  const res4 = await getList(currentPage.value, pageSize.value);
+  list.value = res4.data.videoList;
 });
 
 // import { useRouter } from "vue-router";

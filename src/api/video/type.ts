@@ -13,16 +13,27 @@ export interface videoCarouselResponse extends baseResponse {
   }[];
 }
 
+export interface video {
+  img: string;
+  title: string;
+  createTime: string;
+  user: {
+    id: string;
+    username: string;
+  };
+}
+
+export interface videoRecommendListResponse extends baseResponse {
+  data: video[];
+}
+
 export interface videoListResponse extends baseResponse {
   data: {
-    img: string;
-    title: string;
-    createTime: string;
-    user: {
-      id: string;
-      username: string;
-    };
-  }[];
+    totalRecords: number;
+    currentPage: number;
+    pageSize: number;
+    videoList: video[];
+  };
 }
 
 export interface commentReply {

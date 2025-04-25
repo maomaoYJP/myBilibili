@@ -41,7 +41,7 @@ defineProps<{
 import { useRouter } from "vue-router";
 const router = useRouter();
 const toVideo = () => {
-  router.push({ path: `video/${1313}` });
+  router.push({ path: `/video/${1313}` });
 };
 </script>
 
