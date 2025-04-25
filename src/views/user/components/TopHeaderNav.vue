@@ -15,7 +15,10 @@
 </template>
 
 <script setup lang="ts">
-const props = withDefaults(defineProps<{ modelValue: string }>(), {});
+const props = withDefaults(
+  defineProps<{ modelValue: string; routeActive?: string }>(),
+  { routeActive: "" }
+);
 const emit = defineEmits(["update:modelValue", "tab-click"]);
 
 const activeName = ref(props.modelValue);
@@ -31,27 +34,33 @@ provide("topHeaderContext", {
 
 const slots = useSlots();
 
-const navItems = ref<string[]>([]);
+interface item {
+  name: string;
+  route: string;
+}
+
+const navItems = ref<item[]>([]);
 
 onMounted(() => {
-  if (slots.default) {
-    const defaultSlot = slots.default();
-    if (defaultSlot.length > 0) {
-      const firstChild = defaultSlot[0];
-      const children = firstChild.children;
-      if (children && Array.isArray(children)) {
-        children.forEach((item: any) => {
-          if (item.props?.name) {
-            navItems.value.push(item.props.name);
-          }
-        });
-      }
+  const children = slots.default?.()?.[0]?.children;
+  (Array.isArray(children) ? children : []).forEach((item: any) => {
+    if (item.props?.name) {
+      navItems.value.push(item.props);
     }
-  }
+  });
+  // slideRouteActive(props.routeActive);
 });
 
 const slideIndex = (name: string): number => {
-  const index = navItems.value.indexOf(name);
+  // 检查是否有默认路径激活
+  if (props.routeActive != "") {
+    name =
+      navItems.value.find((item) => item.route === props.routeActive)?.name ||
+      "";
+  }
+  const temp = navItems.value.map((item) => item.name);
+  const index = temp.indexOf(name);
+
   return index === -1 ? 0 : index;
 };
 </script>

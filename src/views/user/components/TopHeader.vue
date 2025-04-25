@@ -1,10 +1,11 @@
 <template>
   <div class="top-header-container">
-    <TopHeaderNav v-model="activeName">
+    <TopHeaderNav v-model="activeName" :route-active="route.fullPath">
       <TopHeaderNavItem
         :name="item.name"
         v-for="item in navItems"
         :key="item.name"
+        :route="item.link"
       >
         <template #link>
           <RouterLink :to="item.link">
@@ -39,9 +40,10 @@
 const activeName = ref("");
 import TopHeaderNav from "./TopHeaderNav.vue";
 import TopHeaderNavItem from "./TopHeaderNavItem.vue";
-
 import useUserStore from "@/stores/modules/user";
+import { useRoute } from "vue-router";
 const userStore = useUserStore();
+const route = useRoute();
 
 interface items {
   name: string;
