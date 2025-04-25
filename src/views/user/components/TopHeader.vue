@@ -1,65 +1,19 @@
 <template>
   <div class="top-header-container">
-    <div class="category-btn">
-      <div class="category-items">
-        <div
-          @click="activeIndex = 0"
-          class="category-item"
-          :class="{ active: activeIndex === 0 }"
-        >
-          <i class="iconfont icon-zhuye"></i>
-          <RouterLink :to="`/user/${userStore.userInfo.userId}/home`"
-            >主页</RouterLink
-          >
-        </div>
-        <div
-          @click="activeIndex = 1"
-          class="category-item"
-          :class="{ active: activeIndex === 1 }"
-        >
-          <i class="iconfont icon-dongtai"></i>
-          <RouterLink :to="`/user/${userStore.userInfo.userId}/dynamic`"
-            >动态</RouterLink
-          >
-        </div>
-        <div
-          @click="activeIndex = 2"
-          class="category-item"
-          :class="{ active: activeIndex === 2 }"
-        >
-          <i class="iconfont icon-dianshi"></i>
-          <RouterLink :to="`/user/${userStore.userInfo.userId}/upload/video`"
-            >投稿</RouterLink
-          >
-        </div>
-        <div
-          @click="activeIndex = 3"
-          class="category-item"
-          :class="{ active: activeIndex === 3 }"
-        >
-          <i class="iconfont icon-heji"></i>
-          <RouterLink :to="`/user/${userStore.userInfo.userId}/lists`"
-            >合集</RouterLink
-          >
-        </div>
-        <div
-          @click="activeIndex = 4"
-          class="category-item"
-          :class="{ active: activeIndex === 4 }"
-        >
-          <i class="iconfont icon-a-shoucang-yishoucang"></i>
-          <RouterLink :to="`/user/${userStore.userInfo.userId}/favlist`"
-            >收藏</RouterLink
-          >
-        </div>
-      </div>
-      <div
-        class="active-line"
-        :style="{
-          transform: `translateX(calc(${activeIndex} * (100% + 16px)))`,
-        }"
-      ></div>
-    </div>
+    <TopHeaderNav v-model="activeName">
+      <TopHeaderNavItem
+        :name="item.name"
+        v-for="item in navItems"
+        :key="item.name"
+      >
+        <template #link>
+          <RouterLink :to="item.link">
+            <i class="iconfont" :class="item.icon"></i>
+            <span>{{ item.name }}</span>
+          </RouterLink>
+        </template>
+      </TopHeaderNavItem>
+    </TopHeaderNav>
     <div class="user-data">
       <div class="user-data-item">
         <div class="title">关注数</div>
@@ -82,9 +36,45 @@
 </template>
 
 <script setup lang="ts">
-const activeIndex = ref(0);
+const activeName = ref("");
+import TopHeaderNav from "./TopHeaderNav.vue";
+import TopHeaderNavItem from "./TopHeaderNavItem.vue";
+
 import useUserStore from "@/stores/modules/user";
 const userStore = useUserStore();
+
+interface items {
+  name: string;
+  link: string;
+  icon: string;
+}
+const navItems = ref<items[]>([
+  {
+    name: "主页",
+    link: `/user/${userStore.userInfo.userId}/home`,
+    icon: "icon-zhuye",
+  },
+  {
+    name: "动态",
+    link: `/user/${userStore.userInfo.userId}/dynamic`,
+    icon: "icon-dongtai",
+  },
+  {
+    name: "投稿",
+    link: `/user/${userStore.userInfo.userId}/upload/video`,
+    icon: "icon-dianshi",
+  },
+  {
+    name: "合集",
+    link: `/user/${userStore.userInfo.userId}/lists`,
+    icon: "icon-heji",
+  },
+  {
+    name: "收藏",
+    link: `/user/${userStore.userInfo.userId}/favlist`,
+    icon: "icon-a-shoucang-yishoucang",
+  },
+]);
 </script>
 
 <style scoped lang="scss">
@@ -104,7 +94,7 @@ const userStore = useUserStore();
         margin-left: $l-margin;
         position: relative;
         transition: all 0.3s;
-        a {
+        span {
           margin-left: $s-margin;
         }
         &.active {

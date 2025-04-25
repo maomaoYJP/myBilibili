@@ -57,6 +57,7 @@ onMounted(() => {
     position: sticky;
     top: 0;
     border-bottom: 1px solid $p-bg-color-deep;
+    z-index: 2;
   }
   .main {
     width: $content-width;
