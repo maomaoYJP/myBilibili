@@ -9,6 +9,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AutoHeightInput: typeof import('./../components/comment/auto-height-input.vue')['default']
+    CardGroup: typeof import('../components/video-card/video-card-group.vue')['default']
     CardRecommend: typeof import('./../components/video-card/card-recommend.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -41,5 +42,6 @@ declare module 'vue' {
     SortButtonItem: typeof import('./../components/sort-button/sort-button-item.vue')['default']
     UserShow: typeof import('./../components/user-show/index.vue')['default']
     VideoCard: typeof import('./../components/video-card/index.vue')['default']
+    VideoCardGroup: typeof import('./../components/video-card/video-card-group.vue')['default']
   }
 }
