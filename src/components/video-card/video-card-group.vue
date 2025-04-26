@@ -1,21 +1,7 @@
 <template>
   <div class="video-list">
     <div class="video-card-item" v-for="(item, index) in videoCardList">
-      <VideoCard :key="index" :videoCard="item">
-        <template #desc>
-          <div class="video-card-info">
-            <a :href="'/video/123'" class="video-card-title">{{
-              item.title
-            }}</a>
-            <div class="user-info">
-              <a :href="'/user/' + item.user.id">
-                <span class="user-name">{{ item.user.username }}</span>
-                <span class="user-time"> · {{ item.createTime }}</span>
-              </a>
-            </div>
-          </div>
-        </template>
-      </VideoCard>
+      <VideoCard :key="index" :videoCard="item"> </VideoCard>
     </div>
   </div>
 </template>
@@ -42,13 +28,6 @@ defineProps<{
   gap: $s-margin;
   .video-card-item {
     height: 200px;
-    .video-card-info {
-      font-size: 14px;
-      color: $text-color-deep;
-      .user-info {
-        margin-top: $s-margin;
-      }
-    }
   }
 }
 </style>
