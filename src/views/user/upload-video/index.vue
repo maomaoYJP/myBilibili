@@ -29,7 +29,6 @@
 <script setup lang="ts">
 import SortButton from "@/components/sort-button/sort-button.vue";
 import SortButtonItem from "@/components/sort-button/sort-button-item.vue";
-import VideoCard from "@/components/video-card/index.vue";
 import VideoCardGroup from "@/components/video-card/video-card-group.vue";
 import { getList } from "@/api/video";
 import type { video } from "@/api/video/type";

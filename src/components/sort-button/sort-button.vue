@@ -25,8 +25,15 @@ const emit = defineEmits(["click"]);
 provide("sortButtonContext", {
   activeItem,
   handleItemClick(name: string) {
-    props.multi ? multiFilter(name) : singleFilter(name);
-    emit("click", activeItem.value);
+    if (props.multi) {
+      multiFilter(name);
+      emit("click", activeItem.value);
+    } else {
+      if (name !== activeItem.value[0]) {
+        singleFilter(name);
+        emit("click", activeItem.value);
+      }
+    }
   },
 });
 
