@@ -52,7 +52,7 @@ const toVideo = () => {
 <style scoped lang="scss">
 .video-card-container {
   width: 100%;
-  height: 100%;
+  height: 200px;
   display: flex;
   flex-direction: column;
   .video-card {

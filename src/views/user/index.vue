@@ -45,8 +45,7 @@ import useSettingStore from "@/stores/modules/setting";
 const settingStore = useSettingStore();
 
 onMounted(() => {
-  settingStore.header.AutoActive = false;
-  settingStore.header.fixTop = true;
+  settingStore.personalSetting();
 });
 </script>
 

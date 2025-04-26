@@ -7,14 +7,29 @@ const useSettingStore = defineStore("setting", () => {
     fixTop: false,
   });
 
-  const banAutoActive = () => {
+  const homeSetting = () => {
+    header.AutoActive = true;
+    header.active = false;
+    header.fixTop = false;
+  };
+
+  const personalSetting = () => {
+    header.AutoActive = false;
+    header.active = false;
+    header.fixTop = true;
+  };
+
+  const videoSetting = () => {
     header.AutoActive = false;
     header.active = true;
+    header.fixTop = false;
   };
 
   return {
     header,
-    banAutoActive,
+    homeSetting,
+    personalSetting,
+    videoSetting,
   };
 });
 

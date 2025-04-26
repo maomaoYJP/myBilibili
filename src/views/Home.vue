@@ -56,13 +56,17 @@
           </el-carousel>
         </div>
         <div class="video-group-container">
-          <VideoCardGroup
-            class="video-group"
-            :video-card-list="recommendList"
-          ></VideoCardGroup>
+          <VideoCardGroup class="video-group">
+            <VideoCard
+              v-for="item in recommendList"
+              :video-card="item"
+            ></VideoCard>
+          </VideoCardGroup>
         </div>
       </div>
-      <VideoCardGroup :video-card-list="list"></VideoCardGroup>
+      <VideoCardGroup>
+        <VideoCard v-for="item in list" :video-card="item"></VideoCard>
+      </VideoCardGroup>
     </div>
   </div>
 </template>
@@ -75,6 +79,8 @@ import type {
   videoCategoryResponse,
   video,
 } from "@/api/video/type";
+import useSettingStore from "@/stores/modules/setting";
+const settingStore = useSettingStore();
 
 const categoryList = ref<videoCategoryResponse["data"]>([]);
 const carouselList = ref<videoCarouselResponse["data"]>([]);
@@ -85,6 +91,7 @@ const currentPage = ref(1);
 const pageSize = ref(20);
 
 onMounted(async () => {
+  settingStore.homeSetting();
   const res = await getCategory();
   categoryList.value = res.data;
   const res2 = await getCarousel();

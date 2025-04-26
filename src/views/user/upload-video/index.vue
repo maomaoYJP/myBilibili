@@ -10,7 +10,9 @@
         </SortButton>
       </div>
     </div>
-    <VideoCardGroup :video-card-list="list" />
+    <VideoCardGroup>
+      <VideoCard v-for="item in list" :video-card="item"></VideoCard>
+    </VideoCardGroup>
     <div class="page">
       <el-pagination
         v-model:current-page="currentPage"

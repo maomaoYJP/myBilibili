@@ -16,13 +16,16 @@
       </div>
     </div>
     <div class="video-card">
-      <VideoCardGroup :video-card-list="list"></VideoCardGroup>
+      <VideoCardGroup>
+        <VideoCard v-for="item in list" :video-card="item"></VideoCard>
+      </VideoCardGroup>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import VideoCardGroup from "@/components/video-card/video-card-group.vue";
+import VideoCard from "@/components/video-card/index.vue";
 import type { video } from "@/api/video/type";
 defineProps<{ list: video[] }>();
 
