@@ -1,19 +1,22 @@
 <template>
   <div class="video-card-container">
-    <el-image
-      class="video-card"
-      fit="cover"
-      :src="videoCard.img"
-      alt="carousel"
-      :lazy="true"
-      @click="toVideo"
-    >
-      <template #placeholder>
-        <div class="video-card-placeholder">
-          <div class="loading-animation"></div>
-        </div>
-      </template>
-    </el-image>
+    <slot name="img">
+      <el-image
+        class="video-card"
+        fit="cover"
+        :src="videoCard.img"
+        alt="carousel"
+        :lazy="true"
+        @click="toVideo"
+      >
+        <template #placeholder>
+          <div class="video-card-placeholder">
+            <div class="loading-animation"></div>
+          </div>
+        </template>
+      </el-image>
+    </slot>
+
     <slot name="desc" :video="videoCard">
       <div class="video-card-info">
         <a :href="'/video/123'" class="video-card-title">{{
