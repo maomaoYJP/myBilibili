@@ -55,23 +55,20 @@
             </el-carousel-item>
           </el-carousel>
         </div>
-        <div class="carousel-video-list">
-          <div class="video-card-item" v-for="(item, index) in recommendList">
-            <VideoCard :key="index" :videoCard="item" />
-          </div>
+        <div class="video-group-container">
+          <VideoCardGroup
+            class="video-group"
+            :video-card-list="recommendList"
+          ></VideoCardGroup>
         </div>
       </div>
-      <div class="video-list">
-        <div class="video-list-item" v-for="(item, index) in list">
-          <VideoCard :key="index" :videoCard="item" />
-        </div>
-      </div>
+      <VideoCardGroup :video-card-list="list"></VideoCardGroup>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import VideoCard from "@/components/video-card/index.vue";
+import VideoCardGroup from "@/components/video-card/video-card-group.vue";
 import { getCategory, getCarousel, getRecommend, getList } from "@/api/video";
 import type {
   videoCarouselResponse,
@@ -97,14 +94,6 @@ onMounted(async () => {
   const res4 = await getList(currentPage.value, pageSize.value);
   list.value = res4.data.videoList;
 });
-
-// import { useRouter } from "vue-router";
-
-// const router = useRouter();
-
-// const toVideo = () => {
-//   router.push({ path: `video/${1313}` });
-// };
 </script>
 
 <style scoped lang="scss">
@@ -138,18 +127,18 @@ onMounted(async () => {
 
   .carousel-video {
     display: flex;
-    height: 400px;
     .carousel {
       flex: 1;
     }
-    .carousel-video-list {
-      flex: 1.3;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    .video-group-container {
+      flex: 1.4;
       overflow: hidden;
-      .video-card-item {
-        height: 200px;
-        margin: 0 $s-margin;
+      margin-left: 6px;
+      .video-group {
+        margin: 0;
+        grid-template-rows: auto auto;
+        grid-auto-rows: 0;
+        overflow: hidden;
       }
     }
   }

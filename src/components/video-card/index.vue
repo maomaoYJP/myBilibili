@@ -14,15 +14,7 @@
         </div>
       </template>
     </el-image>
-    <div class="video-card-info">
-      <a :href="'/video/123'" class="video-card-title">{{ videoCard.title }}</a>
-      <div class="user-info">
-        <a :href="'/user/' + videoCard.user.id">
-          <span class="user-name">{{ videoCard.user.username }}</span>
-          <span class="user-time"> · {{ videoCard.createTime }}</span>
-        </a>
-      </div>
-    </div>
+    <slot name="desc"></slot>
   </div>
 </template>
 
@@ -57,13 +49,6 @@ const toVideo = () => {
     position: relative;
     border-radius: 4px;
     cursor: pointer;
-  }
-  .video-card-info {
-    font-size: 14px;
-    color: $text-color-deep;
-    .user-info {
-      margin-top: $s-margin;
-    }
   }
 }
 
