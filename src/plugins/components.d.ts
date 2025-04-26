@@ -36,6 +36,7 @@ declare module 'vue' {
     ElUpload: typeof import('element-plus/es')['ElUpload']
     Header: typeof import('./../components/header/index.vue')['default']
     ImgShow: typeof import('./../components/img-show/index.vue')['default']
+    MyImage: typeof import('./../components/my-image/index.vue')['default']
     Operation: typeof import('./../components/operation/index.vue')['default']
     Player: typeof import('./../components/player/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
