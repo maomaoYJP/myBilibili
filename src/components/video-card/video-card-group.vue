@@ -1,6 +1,8 @@
 <template>
   <div class="video-list">
-    <slot></slot>
+    <transition-group>
+      <slot></slot>
+    </transition-group>
   </div>
 </template>
 

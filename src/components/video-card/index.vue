@@ -46,6 +46,7 @@ const toVideo = () => {
   height: 200px;
   display: flex;
   flex-direction: column;
+  transition: all 0.5s ease;
   .video-card-info {
     font-size: 14px;
     color: $text-color-deep;
