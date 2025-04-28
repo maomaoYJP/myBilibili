@@ -1,35 +1,49 @@
 <template>
   <div class="lists-container">
-    <div class="title">合集列表</div>
-    <div class="lists">
-      <VideoCardGroup>
-        <VideoCard
-          v-for="(item, index) in list"
-          :video-card="item"
-          :key="item.title"
-          :class="{ move: dragIndex === index }"
-          @dragover.prevent
-          @dragenter="handleEnter(index)"
-          @dragstart="handleDragStart(item, index, $event)"
-          @dragend="handleEnd"
-          ref="videoCardRef"
-        >
-          <template #img>
-            <MyImage
-              draggable="false"
-              :src="item.img"
-              :lazy="false"
-              @click="listClick"
-            ></MyImage>
-          </template>
-          <template #desc>
-            <div class="desc">
-              <div class="create-time">创建于：{{ item.createTime }}</div>
-              <el-icon draggable="true"><Menu /></el-icon>
-            </div>
-          </template>
-        </VideoCard>
-      </VideoCardGroup>
+    <div class="list-cover" v-if="!showContent">
+      <div class="title">合集列表</div>
+      <div class="lists">
+        <VideoCardGroup>
+          <VideoCard
+            v-for="(item, index) in list"
+            :video-card="item"
+            :key="item.title"
+            :class="{ move: dragIndex === index }"
+            @dragover.prevent
+            @dragenter="handleEnter(index)"
+            @dragstart="handleDragStart(item, index, $event)"
+            @dragend="handleEnd"
+            ref="videoCardRef"
+          >
+            <template #img>
+              <MyImage
+                draggable="false"
+                :src="item.img"
+                :lazy="false"
+                @click="coverClick"
+              ></MyImage>
+            </template>
+            <template #desc>
+              <div class="desc">
+                <div class="create-time">创建于：{{ item.createTime }}</div>
+                <el-icon draggable="true"><Menu /></el-icon>
+              </div>
+            </template>
+          </VideoCard>
+        </VideoCardGroup>
+      </div>
+    </div>
+
+    <div class="list-content" v-else>
+      <div class="title">
+        <el-button size="default" @click="showContent = false">返回</el-button>
+        合集列表
+      </div>
+      <div class="video-card">
+        <VideoCardGroup>
+          <VideoCard v-for="item in list" :video-card="item"></VideoCard>
+        </VideoCardGroup>
+      </div>
     </div>
   </div>
 </template>
@@ -38,6 +52,12 @@
 import MyImage from "@/components/my-image/index.vue";
 import { getList } from "@/api/video";
 import type { video } from "@/api/video/type";
+
+const showContent = ref<boolean>(false);
+const coverClick = () => {
+  showContent.value = true;
+};
+
 const list = ref<video[]>([]);
 
 onMounted(async () => {
@@ -45,7 +65,6 @@ onMounted(async () => {
   list.value = res.data.videoList;
 });
 
-const listClick = () => {};
 const videoCardRef = ref();
 const dragIndex = ref(-1);
 
@@ -85,44 +104,55 @@ const handleEnd = () => {
 <style scoped lang="scss">
 .lists-container {
   width: 100%;
-  .title {
-    margin-top: $l-margin;
-    font-size: $m-text-size;
-  }
-  .lists {
-    margin-top: $l-margin;
-    .move {
-      position: relative;
+  .list-cover {
+    .title {
+      margin-top: $l-margin;
+      font-size: $m-text-size;
     }
-    .move::after {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      background-color: $p-bg-color-deep;
-      border-radius: 3px;
+    .lists {
+      margin-top: $l-margin;
+      .move {
+        position: relative;
+      }
+      .move::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: $p-bg-color-deep;
+        border-radius: 3px;
+      }
+      .video-card {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .desc {
+        margin-top: $l-margin;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: $text-color-deep;
+        .create-time {
+          color: $text-color-deep;
+        }
+        i {
+          cursor: move;
+        }
+      }
+    }
+  }
+  .list-content {
+    .title {
+      margin-top: $l-margin;
+      font-size: $m-text-size;
     }
     .video-card {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .desc {
       margin-top: $l-margin;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      color: $text-color-deep;
-      .create-time {
-        color: $text-color-deep;
-      }
-      i {
-        cursor: move;
-      }
     }
   }
 }
