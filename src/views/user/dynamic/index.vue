@@ -108,6 +108,7 @@ onMounted(async () => {
             margin-top: $s-margin;
             .video-card {
               flex-direction: row;
+              height: 100%;
               .img {
                 width: 250px;
                 height: 150px;
