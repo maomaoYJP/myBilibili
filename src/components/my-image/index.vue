@@ -39,7 +39,6 @@ const hendleClick = (e: any) => {
   width: 100%;
   height: 100%;
   position: relative;
-  border-radius: 4px;
   cursor: pointer;
 }
 .video-card-placeholder {

@@ -1,7 +1,7 @@
 <template>
   <div class="video-card-container">
     <slot name="img">
-      <MyImage :src="videoCard.img" @click="toVideo"> </MyImage>
+      <MyImage class="img" :src="videoCard.img" @click="toVideo"> </MyImage>
     </slot>
 
     <slot name="desc" :video="videoCard">
@@ -47,6 +47,9 @@ const toVideo = () => {
   display: flex;
   flex-direction: column;
   transition: all 0.5s ease;
+  .img {
+    border-radius: 4px;
+  }
   .video-card-info {
     font-size: 14px;
     color: $text-color-deep;
