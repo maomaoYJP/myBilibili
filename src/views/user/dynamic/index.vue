@@ -22,9 +22,10 @@
                 </template>
                 <template #desc>
                   <div class="video-card-info">
-                    <a :href="'/video/123'" class="video-card-title"
-                      >视频标题{{ list.title }}</a
-                    >
+                    <div class="video-card-title">
+                      <a :href="'/video/123'">视频标题{{ list.title }}</a>
+                    </div>
+
                     <div class="user-info">
                       <a :href="'/video/123'">
                         <span class="user-name"
