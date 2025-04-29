@@ -44,6 +44,7 @@ declare module 'vue' {
     Search: typeof import('./../components/search/index.vue')['default']
     SortButton: typeof import('./../components/sort-button/sort-button.vue')['default']
     SortButtonItem: typeof import('./../components/sort-button/sort-button-item.vue')['default']
+    UcenterHeader: typeof import('./../components/header/ucenter-header.vue')['default']
     UserShow: typeof import('./../components/user-show/index.vue')['default']
     VideoCard: typeof import('./../components/video-card/index.vue')['default']
     VideoCardGroup: typeof import('./../components/video-card/video-card-group.vue')['default']

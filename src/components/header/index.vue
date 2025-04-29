@@ -85,7 +85,11 @@
         <span>创作中心</span>
       </div>
       <div class="top-item">
-        <el-button class="upload-btn" size="large" icon="upload"
+        <el-button
+          class="upload-btn"
+          size="large"
+          icon="upload"
+          @click="toUcenter"
           >投稿</el-button
         >
       </div>
@@ -201,6 +205,10 @@ const handleLogout = async () => {
 const toHome = () => {
   router.push({ path: `/` });
 };
+
+const toUcenter = () => {
+  router.push({ path: `/ucenter` });
+};
 </script>
 
 <style scoped lang="scss">
@@ -228,13 +236,14 @@ const toHome = () => {
     display: flex;
     align-items: center;
     justify-content: center;
+    .logo {
+      margin-left: $s-padding;
+      font-size: 24px;
+      font-weight: 400;
+      cursor: pointer;
+    }
   }
-  .logo {
-    margin-left: $s-padding;
-    font-size: 24px;
-    font-weight: 400;
-    cursor: pointer;
-  }
+
   .center {
     position: absolute;
     left: 50%;

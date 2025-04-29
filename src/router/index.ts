@@ -13,7 +13,7 @@ const router = createRouter({
         {
           path: "/",
           name: "home",
-          component: Home,
+          component: () => import("@/views/main-station/Home.vue"),
         },
         {
           path: "/video/:id",
@@ -62,6 +62,11 @@ const router = createRouter({
           ],
         },
       ],
+    },
+    {
+      path: "/ucenter",
+      name: "ucenter",
+      component: () => import("@/views/video-admin/index.vue"),
     },
   ],
 });
