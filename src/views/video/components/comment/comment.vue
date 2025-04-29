@@ -27,12 +27,12 @@ import Header from '@/components/header/index.vue';
           :key="comment.id"
         >
           <div class="avatar-area">
-            <ImgShow
+            <MyImage
               class="avatar"
               :height="avatarHeight"
               :width="avatarHeight"
               :src="comment.userAvatar"
-            ></ImgShow>
+            ></MyImage>
           </div>
           <div class="comment-area">
             <div class="main-comment">
@@ -144,7 +144,7 @@ import Header from '@/components/header/index.vue';
 <script setup lang="ts">
 import VideoCommentInput from "./components/video-comment-input.vue";
 import type { videoCommentResponse } from "@/api/video/type";
-import ImgShow from "@/components/img-show/index.vue";
+import MyImage from "@/components/my-image/index.vue";
 import Operation from "@/components/operation/index.vue";
 import type { comment, commentReply } from "@/api/video/type";
 import { ElMessage } from "element-plus";

@@ -6,6 +6,7 @@
     alt="carousel"
     :lazy="lazy"
     @click="hendleClick"
+    :style="{ width: `${height}px`, height: `${height}px` }"
   >
     <template #placeholder>
       <div class="video-card-placeholder">
@@ -16,9 +17,17 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{ src: string; lazy?: boolean }>(), {
-  lazy: true,
-});
+withDefaults(
+  defineProps<{
+    src: string;
+    lazy?: boolean;
+    height?: number;
+    width?: number;
+  }>(),
+  {
+    lazy: true,
+  }
+);
 const emit = defineEmits(["click"]);
 const hendleClick = (e: any) => {
   emit("click", e);
