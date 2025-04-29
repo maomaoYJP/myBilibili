@@ -1,13 +1,13 @@
 <template>
-  <ElConfigProvider :locale="zhCn">
+  <div class="main-station-container">
+    <Header />
     <RouterView />
-  </ElConfigProvider>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { RouterView } from "vue-router";
-import { ElConfigProvider } from "element-plus";
-import zhCn from "element-plus/es/locale/lang/zh-cn";
+import Header from "@/components/header/index.vue";
 import useUserStore from "@/stores/modules/user";
 
 const userStore = useUserStore();
@@ -25,15 +25,12 @@ onMounted(async () => {
 });
 </script>
 
-<style scoped lang="scss"></style>
-
-<style>
-body {
-  margin: 0;
-  padding: 0;
-}
-
-* {
-  box-sizing: border-box;
+<style scoped lang="scss">
+.main-station-container {
+  position: relative;
+  min-width: $min-width;
+  max-width: $max-width;
+  margin: 0 auto;
+  background-color: $p-bg-color;
 }
 </style>
