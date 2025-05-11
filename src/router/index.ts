@@ -67,6 +67,14 @@ const router = createRouter({
       path: "/ucenter",
       name: "ucenter",
       component: () => import("@/views/video-admin/index.vue"),
+      redirect: "/ucenter/postVideo",
+      children: [
+        {
+          path: "/ucenter/postVideo",
+          name: "postVideo",
+          component: () => import("@/views/video-admin/postVideo/index.vue"),
+        },
+      ],
     },
   ],
 });
