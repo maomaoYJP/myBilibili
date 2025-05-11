@@ -29,10 +29,13 @@ const handleClick = () => {
   fileInputRef.value?.click();
 };
 
-const handleFileChange = (e: Event) => {
+const handleFileChange = async (e: Event) => {
   const inputElement = e.target as HTMLInputElement;
-  //获取文件
-  const files = inputElement.files;
+  const file = inputElement.files?.[0];
+  if (file) {
+    const chunks = await cutFile(file);
+    console.log(chunks);
+  }
 };
 
 const handleDrop = (e: DragEvent) => {
@@ -45,6 +48,49 @@ const handleDrop = (e: DragEvent) => {
       console.log(res);
     });
   }
+};
+
+const cutFile = async (file: File) => {
+  return new Promise((resolve) => {
+    const chunk_size = 1024 * 1024 * 10; // 10MB
+    const thread_size = navigator.hardwareConcurrency || 4; // 线程数
+
+    const chunk_num = Math.ceil(file.size / chunk_size); // 切片数量
+    const thread_chunk_num = Math.ceil(chunk_num / thread_size); // 每个线程处理的切片数量
+
+    type chunk = {
+      index: number;
+      chunk: Blob;
+      start: number;
+      end: number;
+    };
+
+    // 对文件分片
+    const chunks: chunk[] = [];
+    let finishedCount = 0;
+    for (let i = 0; i < thread_size; i++) {
+      const start = i * thread_chunk_num;
+      const end = Math.min((i + 1) * thread_chunk_num, chunk_num);
+      // 使用webworker
+      const worker = new Worker(new URL("./worker.ts", import.meta.url), {
+        type: "module",
+      });
+      worker.postMessage({
+        file,
+        start,
+        end,
+        chunk_size,
+      });
+      worker.onmessage = (e) => {
+        chunks[i] = e.data;
+        finishedCount++;
+        if (finishedCount === thread_size) {
+          // 所有线程完成
+          resolve(chunks.flat());
+        }
+      };
+    }
+  });
 };
 
 const getFiles = async (items: any) => {
